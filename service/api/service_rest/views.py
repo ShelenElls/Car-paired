@@ -23,12 +23,15 @@ class TechnicianEncoder(ModelEncoder):
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
         "owner_name",
         "date",
         "reason",
+        "vins",
+        "technician",
     ]
     encoders = {
-        "vin": AutomobileVoEncoder(),
+        "vins": AutomobileVoEncoder(),
         "technician": TechnicianEncoder(),
     }
 
@@ -46,19 +49,19 @@ def api_services(request):
         content = json.loads(request.body)
         # try and except for vins and technicians
         try:
-            id = content["vin"]
-            vin = AutomobileVoEncoder.objects.get(vin=id)
-            content["vin"] = vin
-        except AutomobileVoEncoder.DoesNotExist:
+            id = content["vins"]
+            vin = AutomobileVo.objects.get(vin=id)
+            content["vins"] = vin
+        except AutomobileVo.DoesNotExist:
             return JsonResponse(
                 {"message": "Vin not in database"},
                 status=400
             )
         try:
             id = content["technician"]
-            num = TechnicianEncoder.objects.get(employee_number=id)
+            num = Technician.objects.get(employee_number=id)
             content["technician"] = num
-        except TechnicianEncoder.DoesNotExist:
+        except Technician.DoesNotExist:
             return JsonResponse(
                 {"message": "Technician not in database"},
                 status=400,

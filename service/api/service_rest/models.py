@@ -5,25 +5,27 @@ from django.urls import reverse
 # from inventory.api.inventory_rest.models import Automobile
 
 # Create your models here.
+
+class AutomobileVo(models.Model):
+    vin = models.CharField(max_length=17, unique=True)
+
 class Technician(models.Model):
     name = models.CharField(max_length=100)
     employee_number = models.CharField(max_length=100, unique=True)
 
 class Appointment(models.Model):
-    vin = models.ForeignKey(AutomobileVo, related_name="appointments", on_delete=CASCADE)
+    vins = models.ForeignKey(AutomobileVo, related_name="appointments", on_delete=models.PROTECT)
     owner_name = models.CharField(max_length=100)
-    technician = models.ForeignKey(Technician, related_name="appointments", on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    technician = models.ForeignKey(Technician, related_name="appointments", on_delete=models.PROTECT)
+    date = models.DateField()
     reason = models.TextField()
     
-    def get_api_url(self):
-        return reverse("api_show_appointment", kwargs={"pk": self.pk})
+    # def get_api_url(self):
+    #     return reverse("api_show_appointment", kwargs={"pk": self.pk})
 
 #needed- vin number- name of person, assigned tech(foreignkey), reason for service 
 
 # VO's needed- vin number- name of person to whom the vehicle belongs, assigned tech
-class AutomobileVo(models.Model):
-    vin = models.CharField(max_length=17, unique=True)
 
 
 
