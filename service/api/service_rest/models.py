@@ -7,7 +7,7 @@ from django.urls import reverse
 # Create your models here.
 
 class AutomobileVo(models.Model):
-    vin = models.CharField(max_length=17, unique=True)
+    vins = models.CharField(max_length=17, unique=True)
 
 class Technician(models.Model):
     name = models.CharField(max_length=100)
@@ -17,7 +17,7 @@ class Appointment(models.Model):
     vins = models.ForeignKey(AutomobileVo, related_name="appointments", on_delete=models.PROTECT)
     owner_name = models.CharField(max_length=100)
     technician = models.ForeignKey(Technician, related_name="appointments", on_delete=models.PROTECT)
-    date = models.DateField()
+    date = models.CharField(max_length=100)
     reason = models.TextField()
     
     # def get_api_url(self):

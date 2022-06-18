@@ -10,7 +10,7 @@ from .models import AutomobileVo, Technician, Appointment
 class AutomobileVoEncoder(ModelEncoder):
     model = AutomobileVo
     properties = [
-        "vin"
+        "vins"
     ]
 
 class TechnicianEncoder(ModelEncoder):
@@ -49,9 +49,9 @@ def api_services(request):
         content = json.loads(request.body)
         # try and except for vins and technicians
         try:
-            id = content["vins"]
-            vin = AutomobileVo.objects.get(vin=id)
-            content["vins"] = vin
+            vin = content["vins"]
+            vins = AutomobileVo.objects.get(vins=vin)
+            content["vins"] = vins
         except AutomobileVo.DoesNotExist:
             return JsonResponse(
                 {"message": "Vin not in database"},

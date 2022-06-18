@@ -16,24 +16,22 @@ from service_rest.models import AutomobileVo
 def get_autos():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
+    print(content)
     for auto in content["autos"]:
         AutomobileVo.objects.update_or_create(
-            vin=auto["id"],
-            defaults={
-                "vin": auto["vin"],
-            },
+            vins = auto['vin']
         )
 
 def poll():
     while True:
-        print('Service poller polling for data')
+        print('Service poller polling for data correctly with change')
         try:
             get_autos()
             # Write your polling logic, here
             pass
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(60)
+        time.sleep(2)
 
 
 if __name__ == "__main__":
