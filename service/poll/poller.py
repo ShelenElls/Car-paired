@@ -16,7 +16,6 @@ from service_rest.models import AutomobileVo
 def get_autos():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
-    print(content)
     for auto in content["autos"]:
         AutomobileVo.objects.update_or_create(
             vins = auto['vin']
@@ -31,7 +30,7 @@ def poll():
             pass
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(2)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
