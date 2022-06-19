@@ -136,16 +136,14 @@ def api_tech(request, pk):
     return JsonResponse({"deleted": count > 0})
 
 
-# @require_http_methods(["GET"])
-# def api_show_appointment(request, pk):
-#     servicehx = Appointment.objects.all()
-#     vin_id = servicehx["vins"]
-#     vin = AutomobileVo.objects.get(pk=vin_id)
-#     return JsonResponse(
-#             {"History": vin},
-#             encoder=AppointmentEncoder,
-#             safe=False
-#         )
+@require_http_methods(["GET"])
+def api_show_appointment(request):
+    servicehx = Appointment.objects.all()
+    return JsonResponse(
+            {"History": servicehx},
+            encoder=AppointmentEncoder,
+            safe=False
+        )
 # unable to find a working solution on a straight view- may need to 
 # just utilize react 
 #  history of appointments? get.filer.vin ?
