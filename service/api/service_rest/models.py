@@ -1,3 +1,4 @@
+from sqlite3 import Time
 from tkinter import CASCADE
 from django.db import models
 from django.urls import reverse
@@ -18,6 +19,7 @@ class Appointment(models.Model):
     owner_name = models.CharField(max_length=100)
     technician = models.ForeignKey(Technician, related_name="appointments", on_delete=models.PROTECT)
     date = models.CharField(max_length=100)
+    time = models.CharField(max_length=100)
     reason = models.TextField()
     
     # def get_api_url(self):

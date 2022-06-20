@@ -7,11 +7,13 @@ import json
 from common.json import ModelEncoder
 from .models import AutomobileVo, Technician, Appointment
 
+
 class AutomobileVoEncoder(ModelEncoder):
     model = AutomobileVo
     properties = [
         "vins"
     ]
+
 
 class TechnicianEncoder(ModelEncoder):
     model = Technician
@@ -20,12 +22,14 @@ class TechnicianEncoder(ModelEncoder):
         "employee_number"
     ]
 
+
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
     properties = [
         "id",
         "owner_name",
         "date",
+        "time",
         "reason",
         "vins",
         "technician",
@@ -74,7 +78,6 @@ def api_services(request):
         )
 
 
-
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_service(request, pk):
     if request.method == "GET":
@@ -88,7 +91,8 @@ def api_service(request, pk):
         content = json.loads(request.body)
         try:
             if "technician" in content:
-                technician = Technician.objects.get(employee_number=content["technician"])
+                technician = Technician.objects.get(
+                    employee_number=content["technician"])
                 content["technician"] = technician
         except Technician.DoesNotExist:
             return JsonResponse(
@@ -132,9 +136,19 @@ def api_tech(request, pk):
     return JsonResponse({"deleted": count > 0})
 
 
+@require_http_methods(["GET"])
+def api_show_appointment(request):
+    servicehx = Appointment.objects.all()
+    return JsonResponse(
+            {"History": servicehx},
+            encoder=AppointmentEncoder,
+            safe=False
+        )
+# unable to find a working solution on a straight view- may need to 
+# just utilize react 
+#  history of appointments? get.filer.vin ?
+#  employee_number=content["technician"] 
 
-# @require_http_methods(["GET", "POST"])
-# api_show_appointment = history of appointments? get.filer.vin ? 
 
 
 
