@@ -5,7 +5,7 @@ from django.views.decorators.http import require_http_methods
 import json
 
 from common.json import ModelEncoder
-from .models import AutomobileVo, Technician, Appointment
+from .models import AutomobileVo, Technician, Appointment, AptHistory
 
 
 class AutomobileVoEncoder(ModelEncoder):
@@ -39,8 +39,17 @@ class AppointmentEncoder(ModelEncoder):
         "technician": TechnicianEncoder(),
     }
 
-# post request online for appointment only works if vin and tech are stored in database already under
-# that vin "vins": AutomobileVoEncoder(), (removed encoder to see if input vin would work without it)
+class AptHistoryEncoder(ModelEncoder):
+    models = AptHistory
+    properties = [
+        "vin",
+        "history",
+    ]
+    encoders = {
+        "vin": AutomobileVoEncoder(),
+        "history": AppointmentEncoder(),
+    }
+
 
 
 @require_http_methods(["GET", "POST"])

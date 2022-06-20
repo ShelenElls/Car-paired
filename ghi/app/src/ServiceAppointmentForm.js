@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class ServiceAppointmentForm extends React.Component{
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ class ServiceAppointmentForm extends React.Component{
       technician: '',
       technicians: [],
     }
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeOwnerName = this.handleChangeOwnerName.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -20,7 +22,7 @@ class ServiceAppointmentForm extends React.Component{
     this.handleChangeVins = this.handleChangeVins.bind(this);
     this.handleChangeTechnician = this.handleChangeTechnician.bind(this);
   }
-
+  
   async componentDidMount() {
     const url = 'http://localhost:8080/api/technician/';
     const response = await fetch(url);
@@ -36,7 +38,6 @@ class ServiceAppointmentForm extends React.Component{
     const data = { ...this.state };
     delete data.appointment;
     delete data.technicians;
-    console.log("sub", data)
 
     const url = 'http://localhost:8080/api/services/';
     const fetchConfig = {
