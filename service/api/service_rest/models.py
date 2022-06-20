@@ -15,13 +15,18 @@ class Technician(models.Model):
     employee_number = models.CharField(max_length=100, unique=True)
 
 class Appointment(models.Model):
-    vins = models.ForeignKey(AutomobileVo, related_name="appointments", on_delete=models.PROTECT)
+    vinnew = models.CharField(max_length=17)
     owner_name = models.CharField(max_length=100)
     technician = models.ForeignKey(Technician, related_name="appointmenttech", on_delete=models.PROTECT)
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
     reason = models.TextField()
     
+
+class AptHistory(models.model):
+    vins = models.ForeignKey(AutomobileVo, related_name="apthistorys", on_delete=models.PROTECT)
+
+
     # def get_api_url(self):
     #     return reverse("api_show_appointment", kwargs={"pk": self.pk})
 

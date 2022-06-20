@@ -18,6 +18,7 @@ class AutomobileVoEncoder(ModelEncoder):
 class TechnicianEncoder(ModelEncoder):
     model = Technician
     properties = [
+        "id",
         "name",
         "employee_number"
     ]
@@ -31,13 +32,15 @@ class AppointmentEncoder(ModelEncoder):
         "date",
         "time",
         "reason",
-        "vins",
+        "vinnew",
         "technician",
     ]
     encoders = {
-        "vins": AutomobileVoEncoder(),
         "technician": TechnicianEncoder(),
     }
+
+# post request online for appointment only works if vin and tech are stored in database already under 
+# that vin "vins": AutomobileVoEncoder(), (removed encoder to see if input vin would work without it)
 
 
 @require_http_methods(["GET", "POST"])
@@ -52,24 +55,6 @@ def api_services(request):
     else:
         content = json.loads(request.body)
         # try and except for vins and technicians
-        try:
-            vin = content["vins"]
-            vins = AutomobileVo.objects.get(vins=vin)
-            content["vins"] = vins
-        except AutomobileVo.DoesNotExist:
-            return JsonResponse(
-                {"message": "Vin not in database"},
-                status=400
-            )
-        try:
-            id = content["technician"]
-            num = Technician.objects.get(employee_number=id)
-            content["technician"] = num
-        except Technician.DoesNotExist:
-            return JsonResponse(
-                {"message": "Technician not in database"},
-                status=400,
-            )
         service = Appointment.objects.create(**content)
         return JsonResponse(
             service,
@@ -114,9 +99,9 @@ def api_service(request, pk):
 @require_http_methods(["GET", "POST"])
 def api_technician(request):
     if request.method == "GET":
-        technician = Technician.objects.all()
+        technicians = Technician.objects.all()
         return JsonResponse(
-            {"technician": technician},
+            {"technicians": technicians},
             encoder=TechnicianEncoder,
             safe=False
         )
@@ -148,6 +133,26 @@ def api_show_appointment(request):
 # just utilize react 
 #  history of appointments? get.filer.vin ?
 #  employee_number=content["technician"] 
+
+
+# try:
+        #     vin = content["vins"]
+        #     vins = AutomobileVo.objects.get(vins=vin)
+        #     content["vins"] = vins
+        # except AutomobileVo.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Vin not in database"},
+        #         status=400
+        #     )
+        # try:
+        #     id = content["technician"]
+        #     technician = Technician.objects.get(employee_number=id)
+        #     content["technician"] = technician
+        # except Technician.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Technician not in database"},
+        #         status=400,
+        #     )
 
 
 
