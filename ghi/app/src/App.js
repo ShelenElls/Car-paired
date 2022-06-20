@@ -7,7 +7,10 @@ import ServiceHistoryForm from './ServiceHistory';
 import AppointmentList from './AppointmentList';
 import AppointmentDetails from './AppointmentDetails';
 
-function App() {
+function App(props) {
+  if (props.service === undefined) {
+    return null;
+  }
   return (
     <BrowserRouter>
       <Nav />
@@ -15,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="technician/" element={<TechnicianForm />} />
-          <Route path="services/" element={<AppointmentList />} />
+          <Route path="services/" element={<AppointmentList service={props.service}/>} />
           <Route path="services/details" element={<AppointmentDetails />} />
           <Route path="services/new" element={<ServiceAppointmentForm />} />
           <Route path="services/history" element={<ServiceHistoryForm />} />

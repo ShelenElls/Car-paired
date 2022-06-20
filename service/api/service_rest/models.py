@@ -21,12 +21,18 @@ class Appointment(models.Model):
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
     reason = models.TextField()
- 
+    # finished = models.BooleanField(default=False)
 
 
 class AptHistory(models.Model):
     vin = models.ForeignKey(AutomobileVo, related_name="apthistorys", on_delete=models.PROTECT)
     history = models.ForeignKey(Appointment, related_name="+", on_delete=models.PROTECT)
+
+
+
+
+
+
 
     # def get_api_url(self):
     #     return reverse("api_show_appointment", kwargs={"pk": self.pk})

@@ -105,13 +105,13 @@ class ServiceAppointmentForm extends React.Component{
             </div>
             <div className="col">
               <div className="form-floating mb-3">
-                <input value={this.state.date} onChange={this.handleChangeDate} required placeholder="date" type="text" id="date" name="date" className="form-control" />
+                <input value={this.state.date} onChange={this.handleChangeDate} required placeholder="date" type="date" id="date" name="date" className="form-control" />
                 <label htmlFor="">Date</label>
               </div>
             </div>
             <div className="col">
               <div className="form-floating mb-3">
-                <input value={this.state.time} onChange={this.handleChangeTime} required placeholder="time" type="text" id="time" name="time" className="form-control" />
+                <input value={this.state.time} onChange={this.handleChangeTime} required placeholder="time" type="time" id="time" name="time" className="form-control" />
                 <label htmlFor="">Time</label>
               </div>
             </div>
