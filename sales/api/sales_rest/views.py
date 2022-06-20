@@ -1,16 +1,65 @@
 from django.shortcuts import render
+import json
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
+from common.json import ModelEncoder
+from sales.api.sales_rest.models import AutomobileVO, Customer, SalesPerson, SalesRecord
 
 # Create your views here.
 
-# for your SaleRecordDetailEncoder
-# list your vin/vins as a property field, 
-# and an encoder at the bottom ie- 
-# encoders = {
-    #     "vins": AutomobileVoEncoder(),
-    #     "salesperson": SalespersonEncoder(),
-    #      "customer": CustomerEncoder(), 
+class AutomobileVOEncoder(ModelEncoder):
+    model = AutomobileVO
+    properties = ['vin']
 
-    # }
+class SalesPersonEncoder(ModelEncoder):
+    model = SalesPerson
+    properties = ["name", "employee_num"]
+ 
+class CustomerEncoder(ModelEncoder):
+    model = Customer
+    properties = [
+        "name",
+        "address",
+        "phone_number",
+        "id",
+    ]
+
+class SaleRecordListEncoder(ModelEncoder):
+    models = SalesRecord
+    properties = ["sales_price"]
+    encoders = {
+        "vin": AutomobileVOEncoder,
+        "sales_person": SalesPersonEncoder,
+        "customers": CustomerEncoder,
+    }
+
+class SalesPersonDetailEncoder(ModelEncoder):
+    models = SalesPerson
+    properties = ["name", "employee_num"]
+    encoders = {"sale_records": SaleRecordListEncoder}
+
+
+@require_http_methods(["POST"])
+def api_list_salesperson(request):
+    if request.method == "POST":
+        salesperson = SalesPerson.objects.create(**content)
+        return JsonResponse(
+            salesperson,
+            encoder=SalesPersonEncoder,
+            safe=False,
+        )
+
+@require_http_methods(["POST"])
+def api_list_customers(request):
+    pass
+
+@require_http_methods(["GET", "POST"])
+def api_list_sales_records(request):
+    pass
+
+@require_http_methods(["GET"])
+def api_show_sales_records(request, pk):
+    pass
 
 # sales list view for all:
 # - "salesperson name"
