@@ -6,6 +6,7 @@ class TechnicianForm extends React.Component {
     this.state = {
       name: '',
       employeeId: '',
+      hasCreated: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -16,6 +17,7 @@ class TechnicianForm extends React.Component {
     const data = { ...this.state };
     data.employee_number = data.employeeId;
     delete data.employeeId;
+    delete data.hasCreated;
     delete data.technician;
 
     const url = 'http://localhost:8080/api/technician/';
@@ -29,12 +31,11 @@ class TechnicianForm extends React.Component {
     console.log(data)
     const employeeResponse = await fetch(url, fetchConfig);
     if (employeeResponse.ok) {
-      const newEmployee = await employeeResponse.json();
-      const cleared = {
+      this.setState({
         name: '',
-        employeeId: ''
-      };
-      this.setState(cleared);
+        employeeId: '',
+        hasCreated: true,
+      })
     }
   }
   handleChangeName(event) {

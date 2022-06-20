@@ -17,7 +17,7 @@ class Technician(models.Model):
 class Appointment(models.Model):
     vins = models.ForeignKey(AutomobileVo, related_name="appointments", on_delete=models.PROTECT)
     owner_name = models.CharField(max_length=100)
-    technician = models.ForeignKey(Technician, related_name="appointments", on_delete=models.PROTECT)
+    technician = models.ForeignKey(Technician, related_name="appointmenttech", on_delete=models.PROTECT)
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
     reason = models.TextField()
