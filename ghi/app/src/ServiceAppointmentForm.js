@@ -89,12 +89,16 @@ class ServiceAppointmentForm extends React.Component{
         <div className='col col-sm-auto'>
           <form className='{formClasses}' onSubmit={this.handleSubmit} id="create-appointment-form">
             <h1 className='card-title'>Enter New Appointment</h1>
-            <p className="mb-3">Please complete all the following fields.
-             Select a technician 
-            from the available technicians. </p>
+            <div className="mb-3">
+            <b>Please complete all the following fields.</b>
+
+            <p>Select a technician 
+            from the available technicians.
+            This vin field is to enter a <i>new</i> instance of a VIN. If you need to verify if this client
+            is a VIP, please use the appointment history form to verify. </p> </div>
             <div className="col">
               <div className="form-floating mb-3">
-                <input value={this.state.owner_name} onChange={this.handleChangeOwnerName} required type="text" id="owner_name" name="owner_name" className="form-control" />
+                <input value={this.state.owner_name} onChange={this.handleChangeOwnerName} required placeholder="Owner Name" type="text" id="owner_name" name="owner_name" className="form-control" />
                 <label htmlFor="">Owner Name</label>
               </div>
             </div>

@@ -39,7 +39,7 @@ class AppointmentEncoder(ModelEncoder):
         "technician": TechnicianEncoder(),
     }
 
-# post request online for appointment only works if vin and tech are stored in database already under 
+# post request online for appointment only works if vin and tech are stored in database already under
 # that vin "vins": AutomobileVoEncoder(), (removed encoder to see if input vin would work without it)
 
 
@@ -55,6 +55,15 @@ def api_services(request):
     else:
         content = json.loads(request.body)
         # try and except for vins and technicians
+        try:
+            id = content["technician"]
+            technician = Technician.objects.get(employee_number=id)
+            content["technician"] = technician
+        except Technician.DoesNotExist:
+            return JsonResponse(
+                {"message": "invalid employee id"},
+                status=400,
+            )
         service = Appointment.objects.create(**content)
         return JsonResponse(
             service,
@@ -125,44 +134,41 @@ def api_tech(request, pk):
 def api_show_appointment(request):
     servicehx = Appointment.objects.all()
     return JsonResponse(
-            {"History": servicehx},
-            encoder=AppointmentEncoder,
-            safe=False
-        )
-# unable to find a working solution on a straight view- may need to 
-# just utilize react 
+        {"History": servicehx},
+        encoder=AppointmentEncoder,
+        safe=False
+    )
+# unable to find a working solution on a straight view- may need to
+# just utilize react
 #  history of appointments? get.filer.vin ?
-#  employee_number=content["technician"] 
+#  employee_number=content["technician"]
 
 
 # try:
-        #     vin = content["vins"]
-        #     vins = AutomobileVo.objects.get(vins=vin)
-        #     content["vins"] = vins
-        # except AutomobileVo.DoesNotExist:
-        #     return JsonResponse(
-        #         {"message": "Vin not in database"},
-        #         status=400
-        #     )
-        # try:
-        #     id = content["technician"]
-        #     technician = Technician.objects.get(employee_number=id)
-        #     content["technician"] = technician
-        # except Technician.DoesNotExist:
-        #     return JsonResponse(
-        #         {"message": "Technician not in database"},
-        #         status=400,
-        #     )
+    #     vin = content["vins"]
+    #     vins = AutomobileVo.objects.get(vins=vin)
+    #     content["vins"] = vins
+    # except AutomobileVo.DoesNotExist:
+    #     return JsonResponse(
+    #         {"message": "Vin not in database"},
+    #         status=400
+    #     )
+    # try:
+    #     id = content["technician"]
+    #     technician = Technician.objects.get(employee_number=id)
+    #     content["technician"] = technician
+    # except Technician.DoesNotExist:
+    #     return JsonResponse(
+    #         {"message": "Technician not in database"},
+    #         status=400,
+    #     )
 
 
-
-
-
-# list view for services 
-# detail view for services 
-# 
-# inventoryVO 
-# technician post + get - 
+# list view for services
+# detail view for services
+#
+# inventoryVO
+# technician post + get -
 # service history - list of apts for specific vin and include details of apts
 
 # class AutomobileVo(models.Model):
@@ -180,8 +186,7 @@ def api_show_appointment(request):
 #     reason = models.TextField()
 
 
-
-# api_services, 
+# api_services,
 # "services/<int:pk>", api_service
-# api_show_appointment, 
+# api_show_appointment,
 # api_technician
