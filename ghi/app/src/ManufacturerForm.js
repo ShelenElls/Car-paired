@@ -1,0 +1,1 @@
+//form field for the name of manufacturers
