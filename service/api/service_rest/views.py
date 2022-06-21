@@ -1,4 +1,5 @@
 from pyexpat import model
+from webbrowser import get
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
@@ -40,9 +41,14 @@ class AppointmentEncoder(ModelEncoder):
         "technician": TechnicianEncoder(),
     }
     def get_extra_data(self, o):
+        try:
+            AutomobileVo.objects.get(vin=content["vins"])
+            content["is_vip"] = True
+        except AutomobileVo.DoesNotExist:
+            content["is_vip"] = False
         # try automobilevo.objects.get (VIN) if true return an object with key of VIP value
         # is either true or false  
-        return {}
+        return JsonResponse({"VIP": content})
 
 
 # filter unfinished ones- 

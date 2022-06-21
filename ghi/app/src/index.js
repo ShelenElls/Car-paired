@@ -10,21 +10,6 @@ root.render(
 );
 
 
-// async function for appointment list 
-
-// async function AppointmentList() {
-//   const response = await fetch('http://localhost:8080/api/services/');
-//   if (response.ok) {
-//     const data = await response.json();
-//     root.render(
-//       <React.StrictMode>
-//         <App service={data.service} />
-//       </React.StrictMode>
-//     );
-//   }
-// }
-// AppointmentList();
-
 // async function InventoryData() {
 //   const manufacturerResponse = await fetch('http://localhost:8100/api/manufacturers');
 //   const automobileResponse = await fetch('http://localhost:8100/api/automobiles');
@@ -44,9 +29,3 @@ root.render(
 //   }
 // }
 // InventoryData();
-
-
-// async function ServiceHistory() {
-//   const servresponse = await fetch('http://localhost:8080/api/services/')
-//   const 
-// }

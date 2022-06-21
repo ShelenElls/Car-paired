@@ -18,8 +18,9 @@ class AutomobileVo(models.Model):
     vins = models.CharField(max_length=17, unique=True)
     is_vip = models.BooleanField(default=True)
     color = models.CharField(max_length=50)
-    model = models.CharField()
-    # vip(boolean default to true ) + all the other fields 
+    model = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+
 
 class Technician(models.Model):
     name = models.CharField(max_length=100)
@@ -52,37 +53,3 @@ class Appointment(models.Model):
         self.status = status
         self.delete()
 
-
-# class AptHistory(models.Model):
-#     vin = models.ForeignKey(AutomobileVo, related_name="apthistorys", on_delete=models.PROTECT)
-
-
-
-
-
-
-
-    # def get_api_url(self):
-    #     return reverse("api_show_appointment", kwargs={"pk": self.pk})
-# couldnt get success url to work, may try to do a redirect in react 
-
-#needed- vin number- name of person, assigned tech(foreignkey), reason for service 
-
-# VO's needed- vin number- name of person to whom the vehicle belongs, assigned tech
-
-
-
-# models from inventory that need to be POLLED !!
-# class Automobile(models.Model):
-#     color = models.CharField(max_length=50)
-#     year = models.PositiveSmallIntegerField()
-#     vin = models.CharField(max_length=17, unique=True)
-
-#     model = models.ForeignKey(
-#         VehicleModel,
-#         related_name="automobiles",
-#         on_delete=models.CASCADE,
-#     )
-
-#     def get_api_url(self):
-#         return reverse("api_automobile", kwargs={"vin": self.vin})
