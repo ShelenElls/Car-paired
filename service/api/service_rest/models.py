@@ -6,9 +6,20 @@ from django.urls import reverse, reverse_lazy
 # from inventory.api.inventory_rest.models import Automobile
 
 # Create your models here.
+class Status(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True)
+    name = models.CharField(max_length=10, unique=True)
+
+    class Meta:
+        ordering = ("id",) 
+        verbose_name_plural = "statuses"  # Fix the pluralization
 
 class AutomobileVo(models.Model):
     vins = models.CharField(max_length=17, unique=True)
+    is_vip = models.BooleanField(default=True)
+    color = models.CharField(max_length=50)
+    model = models.CharField()
+    # vip(boolean default to true ) + all the other fields 
 
 class Technician(models.Model):
     name = models.CharField(max_length=100)
@@ -21,12 +32,29 @@ class Appointment(models.Model):
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
     reason = models.TextField()
-    finished = models.BooleanField(default=False)
+    status = models.ForeignKey(
+        Status,
+        related_name="appointments",
+        on_delete=models.PROTECT,
+    )
+    def finished(self):
+        status = Status.objects.get(name="Finished")
+        self.status = status
+        self.save()
+
+    def pending(self):
+        status = Status.objects.get(name="Pending")
+        self.status = status
+        self.save()
+
+    def cancelled(self):
+        status = Status.objects.get(name="Cancelled")
+        self.status = status
+        self.delete()
 
 
-class AptHistory(models.Model):
-    vin = models.ForeignKey(AutomobileVo, related_name="apthistorys", on_delete=models.PROTECT)
-    history = models.ForeignKey(Appointment, related_name="+", on_delete=models.PROTECT)
+# class AptHistory(models.Model):
+#     vin = models.ForeignKey(AutomobileVo, related_name="apthistorys", on_delete=models.PROTECT)
 
 
 

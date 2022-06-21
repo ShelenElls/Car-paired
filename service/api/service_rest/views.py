@@ -5,7 +5,7 @@ from django.views.decorators.http import require_http_methods
 import json
 
 from common.json import ModelEncoder
-from .models import AutomobileVo, Technician, Appointment, AptHistory
+from .models import AutomobileVo, Technician, Appointment, Status
 
 
 class AutomobileVoEncoder(ModelEncoder):
@@ -34,30 +34,23 @@ class AppointmentEncoder(ModelEncoder):
         "reason",
         "vinnew",
         "technician",
-        "finished",
+        "status",
     ]
     encoders = {
         "technician": TechnicianEncoder(),
     }
-
-
-class AptHistoryEncoder(ModelEncoder):
-    model = AptHistory
-    properties = [
-        "vin",
-        "history",
-    ]
     def get_extra_data(self, o):
-        return {"vin": o.automobilevo.vins}
-    def get_extra_data(self, o):
-        return {"history": o.appointment.id}
+        # try automobilevo.objects.get (VIN) if true return an object with key of VIP value
+        # is either true or false  
+        return {}
+
 
 # filter unfinished ones- 
 
 @require_http_methods(["GET", "POST"])
 def api_services(request):
     if request.method == "GET":
-        service = Appointment.objects.filter(finished=False)
+        service = Appointment.objects.get(name="Pending")
         return JsonResponse(
             {"service": service},
             encoder=AppointmentEncoder,
@@ -65,7 +58,6 @@ def api_services(request):
         )
     else:
         content = json.loads(request.body)
-        # try and except for vins and technicians
         try:
             id = content["technician"]
             technician = Technician.objects.get(employee_number=id)
@@ -130,15 +122,43 @@ def api_tech(request, pk):
     count, _ = Technician.objects.filter(id=pk).delete()
     return JsonResponse({"deleted": count > 0})
 
+@require_http_methods(["PUT"])
+def api_finished_apt(request, pk):
+    apt = Appointment.objects.get(id=pk)
+    apt.finished()
+    return JsonResponse(
+        apt, 
+        encoder=AppointmentEncoder,
+        safe=False,
+    )
+
+@require_http_methods(["PUT"])
+def api_cancelled_apt(requests, pk):
+    cancel = Appointment.objects.get(id=pk)
+    cancel.cancelled()
+    return JsonResponse(
+        cancel,
+        encoder=AppointmentEncoder,
+        safe=False,
+    )
+
+
 
 @require_http_methods(["GET"])
 def api_show_appointment(request):
-    servicehistory = AptHistory.objects.all()
+    servicehistory = AutomobileVo.objects.all()
     return JsonResponse(
-        {"history": servicehistory},
-        encoder=AptHistoryEncoder,
+        {"vip": servicehistory},
+        encoder=AutomobileVoEncoder,
         safe=False
     )
+
+
+# id = content["technician"]
+#             technician = Technician.objects.get(employee_number=id)
+#             content["technician"] = technician
+# # show appointment needs to collect all the data from VINS. needs to collect 
+# all appointments for finished and pending. 
 
 # object.get(vin)
 # 
