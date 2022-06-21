@@ -42,15 +42,15 @@ class AppointmentEncoder(ModelEncoder):
 
 
 class AptHistoryEncoder(ModelEncoder):
-    models = AptHistory
+    model = AptHistory
     properties = [
         "vin",
         "history",
     ]
-    encoders = {
-        "vin": AutomobileVoEncoder(),
-        "history": AppointmentEncoder(),
-    }
+    def get_extra_data(self, o):
+        return {"vin": o.automobilevo.vins}
+    def get_extra_data(self, o):
+        return {"history": o.appointment.id}
 
 # filter unfinished ones- 
 
