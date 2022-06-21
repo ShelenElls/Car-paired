@@ -24,3 +24,8 @@ async function AppointmentList() {
   }
 }
 AppointmentList();
+
+// async function ServiceHistory() {
+//   const servresponse = await fetch('http://localhost:8080/api/services/')
+//   const 
+// }

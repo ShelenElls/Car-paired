@@ -33,11 +33,13 @@ class AppointmentEncoder(ModelEncoder):
         "time",
         "reason",
         "vinnew",
-        "technician",     
+        "technician",
+        "finished",
     ]
     encoders = {
         "technician": TechnicianEncoder(),
     }
+
 
 class AptHistoryEncoder(ModelEncoder):
     models = AptHistory
@@ -50,12 +52,12 @@ class AptHistoryEncoder(ModelEncoder):
         "history": AppointmentEncoder(),
     }
 
-
+# filter unfinished ones- 
 
 @require_http_methods(["GET", "POST"])
 def api_services(request):
     if request.method == "GET":
-        service = Appointment.objects.all()
+        service = Appointment.objects.filter(finished=False)
         return JsonResponse(
             {"service": service},
             encoder=AppointmentEncoder,
@@ -81,7 +83,7 @@ def api_services(request):
         )
 
 
-@require_http_methods(["GET", "PUT", "DELETE"])
+@require_http_methods(["GET", "DELETE", "PUT"])
 def api_service(request, pk):
     if request.method == "GET":
         service = Appointment.objects.get(id=pk)
@@ -92,22 +94,12 @@ def api_service(request, pk):
         )
     elif request.method == "PUT":
         content = json.loads(request.body)
-        try:
-            if "technician" in content:
-                technician = Technician.objects.get(
-                    employee_number=content["technician"])
-                content["technician"] = technician
-        except Technician.DoesNotExist:
-            return JsonResponse(
-                {"message": "invalid employee id"},
-                status=400,
-            )
         Appointment.objects.filter(id=pk).update(**content)
         service = Appointment.objects.get(id=pk)
         return JsonResponse(
-            service,
-            encoder=AppointmentEncoder,
-            safe=False,
+        service,
+        encoder=AppointmentEncoder,
+        safe=False,
         )
     else:
         count, _ = Appointment.objects.filter(id=pk).delete()
@@ -141,12 +133,17 @@ def api_tech(request, pk):
 
 @require_http_methods(["GET"])
 def api_show_appointment(request):
-    servicehx = Appointment.objects.all()
+    servicehistory = AptHistory.objects.all()
     return JsonResponse(
-        {"History": servicehx},
-        encoder=AppointmentEncoder,
+        {"history": servicehistory},
+        encoder=AptHistoryEncoder,
         safe=False
     )
+
+# object.get(vin)
+# 
+
+
 # unable to find a working solution on a straight view- may need to
 # just utilize react
 #  history of appointments? get.filer.vin ?

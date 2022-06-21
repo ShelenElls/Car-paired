@@ -17,9 +17,6 @@ function Nav() {
               <NavLink className="nav-link" aria-current="page" to="/services">Appointment List</NavLink>
           </li>
           <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/services/details/">Appointment Details</NavLink>
-          </li>
-          <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/services/new/">New Service Appointment</NavLink>
           </li>
           <li className="nav-item">

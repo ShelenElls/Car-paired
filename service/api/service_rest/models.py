@@ -21,7 +21,7 @@ class Appointment(models.Model):
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
     reason = models.TextField()
-    # finished = models.BooleanField(default=False)
+    finished = models.BooleanField(default=False)
 
 
 class AptHistory(models.Model):

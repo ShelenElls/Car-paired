@@ -5,9 +5,10 @@ import TechnicianForm from './TechnicianForm';
 import ServiceAppointmentForm from './ServiceAppointmentForm';
 import ServiceHistoryForm from './ServiceHistory';
 import AppointmentList from './AppointmentList';
-import AppointmentDetails from './AppointmentDetails';
+
 
 function App(props) {
+  // const [contacts, historyService] = useState([]);
   if (props.service === undefined) {
     return null;
   }
@@ -19,9 +20,8 @@ function App(props) {
           <Route path="/" element={<MainPage />} />
           <Route path="technician/" element={<TechnicianForm />} />
           <Route path="services/" element={<AppointmentList service={props.service}/>} />
-          <Route path="services/details" element={<AppointmentDetails />} />
           <Route path="services/new" element={<ServiceAppointmentForm />} />
-          <Route path="services/history" element={<ServiceHistoryForm />} />
+          {/* <Route path="services/history" element={<ServiceHistoryForm historyService={historyService} />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
