@@ -47,7 +47,9 @@ function AppointmentList(props) {
 }
 export default AppointmentList;
 
+// method: "delete" - like handle submit ??
 
+// onClickhandler : cancel - finish 
 
 // list of scheduled appointments; details collected in form; 
 // if vin was in inventory; then it was purchased from dealership;

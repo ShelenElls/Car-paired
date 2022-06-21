@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ALLOWED_HOSTS = [
-    "localhost",
+    # "localhost",
 ]
 
 CSRF_TRUSTED_ORIGINS = [

@@ -7,18 +7,17 @@ from django.urls import reverse, reverse_lazy
 
 # Create your models here.
 class Status(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True)
     name = models.CharField(max_length=10, unique=True)
 
     class Meta:
-        ordering = ("id",) 
         verbose_name_plural = "statuses"  # Fix the pluralization
 
 class AutomobileVo(models.Model):
-    vins = models.CharField(max_length=17, unique=True)
+    vin = models.CharField(max_length=17, unique=True)
     is_vip = models.BooleanField(default=True)
     color = models.CharField(max_length=50)
     model = models.CharField(max_length=100)
+    manufacturer = models.CharField(max_length=100)
     year = models.CharField(max_length=100)
 
 
@@ -38,18 +37,20 @@ class Appointment(models.Model):
         related_name="appointments",
         on_delete=models.PROTECT,
     )
-    def finished(self):
-        status = Status.objects.get(name="Finished")
-        self.status = status
-        self.save()
+    @classmethod
+    def create(cls, **kwargs):
+        kwargs["status"] = Status.objects.get(name="SCHEDULED")      
+        appointment = cls(**kwargs)
+        appointment.save()
+        return appointment
 
-    def pending(self):
-        status = Status.objects.get(name="Pending")
+    def completed(self):
+        status = Status.objects.get(name="COMPLETED")
         self.status = status
         self.save()
 
     def cancelled(self):
-        status = Status.objects.get(name="Cancelled")
+        status = Status.objects.get(name="CANCELLED")
         self.status = status
-        self.delete()
+        self.save()
 

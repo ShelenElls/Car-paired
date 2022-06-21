@@ -8,11 +8,22 @@ import json
 from common.json import ModelEncoder
 from .models import AutomobileVo, Technician, Appointment, Status
 
+class StatusEncoder(ModelEncoder):
+    model = Status
+    properties = [
+        "name"
+    ]
 
 class AutomobileVoEncoder(ModelEncoder):
     model = AutomobileVo
     properties = [
-        "vins"
+        "id",
+        "vin",
+        "is_vip",
+        "color",
+        "model",
+        "year",
+        "manfucturer",
     ]
 
 
@@ -39,16 +50,16 @@ class AppointmentEncoder(ModelEncoder):
     ]
     encoders = {
         "technician": TechnicianEncoder(),
+        "status": StatusEncoder(),
     }
     def get_extra_data(self, o):
         try:
-            AutomobileVo.objects.get(vin=content["vins"])
-            content["is_vip"] = True
-        except AutomobileVo.DoesNotExist:
-            content["is_vip"] = False
+            AutomobileVo.objects.get(vin=o.vinnew)
+            return {"vip": True}
+        except:
+            return {"vip": False}
         # try automobilevo.objects.get (VIN) if true return an object with key of VIP value
         # is either true or false  
-        return JsonResponse({"VIP": content})
 
 
 # filter unfinished ones- 
@@ -56,7 +67,8 @@ class AppointmentEncoder(ModelEncoder):
 @require_http_methods(["GET", "POST"])
 def api_services(request):
     if request.method == "GET":
-        service = Appointment.objects.get(name="Pending")
+        status = Status.objects.get(name="SCHEDULED")
+        service = Appointment.objects.filter(status=status)
         return JsonResponse(
             {"service": service},
             encoder=AppointmentEncoder,
@@ -73,7 +85,7 @@ def api_services(request):
                 {"message": "invalid employee id"},
                 status=400,
             )
-        service = Appointment.objects.create(**content)
+        service = Appointment.create(**content)
         return JsonResponse(
             service,
             encoder=AppointmentEncoder,
