@@ -2,6 +2,7 @@
 // manufacturers
 
 function ManufacturersList(props) {
+  console.log("props side", props)
     return (
         <>
           <div className="container">
@@ -14,10 +15,10 @@ function ManufacturersList(props) {
             </th>
           </thead>
             <tbody>
-                {props.manufacturers.map(manufacturer => {
+                {props.manufacturers.map(man => {
                     return(
-                        <tr key={manufacturer.id}>
-                            <td>{manufacturer.name}</td>
+                        <tr key={man.id}>
+                            <td>{man.name}</td>
                         </tr>
                     )
                 })}

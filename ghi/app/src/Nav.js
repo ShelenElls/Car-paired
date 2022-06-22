@@ -10,18 +10,25 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/technician">Enter a Technician</NavLink>
-          </li>
-          <li className="nav-item dropdown">
-              <NavLink className="nav-link" aria-current="page" to="/services">Appointment List</NavLink>
-          </li>
-          <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/services/new/">New Service Appointment</NavLink>
-          </li>
-          <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/services/history/">History of Appointments</NavLink>
-          </li>
+              <li className="nav-item">
+                  <NavLink className="nav-link" aria-current="page" to="/manufacturers">Manufacturer List</NavLink>
+              </li>
+              <li className="nav-item">
+                  <NavLink className="nav-link" aria-current="page" to="/manufacturers/new">New Manufacturer</NavLink>
+              </li>
+              <li className="nav-item">
+                  <NavLink className="nav-link" aria-current="page" to="/technician">Enter a Technician</NavLink>
+              </li>
+              <li className="nav-item dropdown">
+
+                  <NavLink className="nav-link" aria-current="page" to="/services">Appointment List</NavLink>
+              </li>
+              <li className="nav-item">
+                  <NavLink className="nav-link" aria-current="page" to="/services/new/">New Service Appointment</NavLink>
+              </li>
+              <li className="nav-item">
+                  <NavLink className="nav-link" aria-current="page" to="/services/history/">History of Appointments</NavLink>
+              </li>
           </ul>
         </div>
       </div>
@@ -33,12 +40,21 @@ export default Nav;
 
 
 // example of how to make a dropdown box for the multiple links in a service 
-{/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+{/* <div className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          All Services
+        </div>
+        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <NavLink className="dropdown-item" to="/services">Appointment List</NavLink>
+          <NavLink className="dropdown-item" to="/services/new/">New Service Appointment</NavLink>
+          <NavLink className="dropdown-item" to="/services/history/">History of Appointments</NavLink>
         </div> */}
+// <li className="nav-item dropdown">
+{/* <NavLink className="nav-link" aria-current="page" to="/services">Appointment List</NavLink>
+// </li>
+<li className="nav-item">
+    <NavLink className="nav-link" aria-current="page" to="/services/new/">New Service Appointment</NavLink>
+</li>
+<li className="nav-item">
+    <NavLink className="nav-link" aria-current="page" to="/services/history/">History of Appointments</NavLink>
+</li> */}
 // wouldnt be an a link- it would be a navlink 

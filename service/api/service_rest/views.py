@@ -160,8 +160,14 @@ def api_cancelled_apt(requests, pk):
         safe=False,
     )
 
-
-
+@require_http_methods(["GET"])
+def api_show_appointment(requests):
+    history = Appointment.objects.all()
+    return JsonResponse(
+        history,
+        encoder=AppointmentEncoder,
+        safe=False
+    )
 
 
 # id = content["technician"]
