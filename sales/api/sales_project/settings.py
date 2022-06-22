@@ -29,6 +29,7 @@ DEBUG = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'sales_rest.apps.SalesRestConfig',
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleWare',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -46,7 +48,7 @@ MIDDLEWARE = [
 ]
 
 ALLOWED_HOSTS = [
-    "localhost",
+    "localhost", 'inventory-api'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
