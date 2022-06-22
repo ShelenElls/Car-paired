@@ -26,6 +26,11 @@ urlpatterns = [
         name="api_manufacturers",
     ),
     path(
+        "manufacturers/new/",
+        api_manufacturers,
+        name="api_manufacturers",
+    ),
+    path(
         "manufacturers/<int:pk>/",
         api_manufacturer,
         name="api_manufacturer",

@@ -19,7 +19,7 @@ class ManufacturerForm extends React.Component {
         const data = { ...this.state };
         delete data.hasCreated;
 
-        const url = 'http://localhost:8100/api/manufacturers/'
+        const url = 'http://localhost:8100/api/manufacturers/new/'
         const fetchConfig = {
             method: 'post',
             body: JSON.stringify(data),

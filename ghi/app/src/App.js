@@ -63,7 +63,7 @@ class App extends React.Component {
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="manufacturers/" element={<ManufacturerForm />} />
+            <Route path="manufacturers/new/" element={<ManufacturerForm />} />
             <Route path="manufacturers/" element={<ManufacturersList manufacturers={this.state.manufacturelist} />} />
             <Route path="technician/" element={<TechnicianForm />} />
             <Route path="services/" element={<AppointmentList service={this.state.appointmentlist} />} />
