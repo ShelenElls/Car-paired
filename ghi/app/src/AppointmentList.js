@@ -6,7 +6,42 @@ import { Link } from 'react-router-dom';
 // is the vin in the database- yes == VIP (add star)
   // status unfinished/finished/cancelled  
 
+
 function AppointmentList(props) {
+
+  const finished = async (event) => {
+    console.log(event.currentTarget.id)
+    const idvalue = event.currentTarget.id;
+    const url = `http://localhost:8080/api/services/finished/${idvalue}/`
+    const fetchConfig = {
+      method: "put",
+      headers: {"Content-Type": "application/json"}
+    }
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      console.log({"second": "cancelled appointment"})
+    } else {
+      console.log({"third": "you failed"})
+    }
+  }
+
+
+  const cancel = async (event) => {
+    console.log(event.currentTarget.id)
+    const idvalue = event.currentTarget.id;
+    const url = `http://localhost:8080/api/services/reject/${idvalue}/`
+    const fetchConfig = {
+      method: "put",
+      headers: {"Content-Type": "application/json"}
+    }
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      console.log({"second": "cancelled appointment"})
+    } else {
+      console.log({"third": "you failed"})
+    }
+  } 
+
   return (
     <>
       <div className="container">
@@ -23,10 +58,12 @@ function AppointmentList(props) {
               <th>Technician</th>
               <th>Reason</th>
               <th>Status</th>
+              <th>Cancel Apt</th>
+              <th>Complete Apt</th>
             </tr>
           </thead>
           <tbody>
-            {props.service.map(apt => {
+            {props.service.map((apt, key) => {
               return(
                 <tr key={apt.id}>
                   <td>{ apt.date }</td>
@@ -35,7 +72,9 @@ function AppointmentList(props) {
                   <td>{ apt.owner_name }</td>
                   <td>{ apt.technician.name }</td>
                   <td>{ apt.reason }</td>
-
+                  <td>{ apt.status.name }</td>
+                  <td><button onClick={cancel} id={apt.id} key={apt.id}>Cancel</button></td>
+                  <td><button onClick={finished} id={apt.id} key={apt.id}>Complete</button></td>
                 </tr>
               );
             })}
@@ -47,9 +86,19 @@ function AppointmentList(props) {
 }
 export default AppointmentList;
 
+// cancel is an event- 
+// <button onClick={cancel}>Cancel</button>
+// 
+// above return statement- make a function that makes a put request WITH URL 
+// key appointment.vin or appointment.id- store the value into a variable; 
+// `${name of the parameter}`
+
 // method: "delete" - like handle submit ??
 
-// onClickhandler : cancel - finish 
+// onClickhandler : cancel - finish
+
+
+
 
 // list of scheduled appointments; details collected in form; 
 // if vin was in inventory; then it was purchased from dealership;

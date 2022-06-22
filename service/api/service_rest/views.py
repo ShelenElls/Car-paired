@@ -143,7 +143,7 @@ def api_tech(request, pk):
 @require_http_methods(["PUT"])
 def api_finished_apt(request, pk):
     apt = Appointment.objects.get(id=pk)
-    apt.finished()
+    apt.completed()
     return JsonResponse(
         apt, 
         encoder=AppointmentEncoder,
@@ -162,14 +162,6 @@ def api_cancelled_apt(requests, pk):
 
 
 
-@require_http_methods(["GET"])
-def api_show_appointment(request):
-    servicehistory = AutomobileVo.objects.all()
-    return JsonResponse(
-        {"vip": servicehistory},
-        encoder=AutomobileVoEncoder,
-        safe=False
-    )
 
 
 # id = content["technician"]
