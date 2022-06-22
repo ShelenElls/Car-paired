@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 function AppointmentList(props) {
 
+
   const finished = async (event) => {
     console.log(event.currentTarget.id)
     const idvalue = event.currentTarget.id;
@@ -42,6 +43,16 @@ function AppointmentList(props) {
     }
   } 
 
+  //  const bool(currentTarget.id) => {
+  //   if (apt.vip == true) {
+  //     return(
+  //       <td>Yes</td>
+  //     )
+  //   } else {
+  //   <td>No</td>
+  //   }
+  // }
+
   return (
     <>
       <div className="container">
@@ -72,7 +83,7 @@ function AppointmentList(props) {
                   <td>{ apt.owner_name }</td>
                   <td>{ apt.technician.name }</td>
                   <td>{ apt.reason }</td>
-                  <td>{ apt.vip }</td>
+                  <td>{  }</td>
                   <td><button onClick={cancel} id={apt.id} key={apt.id}>Cancel</button></td>
                   <td><button onClick={finished} id={apt.id} key={apt.id}>Complete</button></td>
                 </tr>
@@ -86,78 +97,5 @@ function AppointmentList(props) {
 }
 export default AppointmentList;
 
-// cancel is an event- 
-// <button onClick={cancel}>Cancel</button>
-// 
-// above return statement- make a function that makes a put request WITH URL 
-// key appointment.vin or appointment.id- store the value into a variable; 
-// `${name of the parameter}`
+// look up how to do conditional statement with map in react
 
-// method: "delete" - like handle submit ??
-
-// onClickhandler : cancel - finish
-
-
-
-
-// list of scheduled appointments; details collected in form; 
-// if vin was in inventory; then it was purchased from dealership;
-// show VIP client -; needs to have the ability to cancel button and ability to complete button
-// <div className="row">
-// {this.state.appointmentRow.map((list, index) => {
-//   return (
-//     <AppointmentRow key={index} list={list} />
-//   );
-// })}
-// </div>
-// 
-// this.cancel = remove from list 
-// this.finished = stays in appointment history- is removed from list. 
-
-
-// <table className="table table-striped">
-{/* <thead>
-<tr>
-  <th>Date</th>
-  <th>Time</th>
-  <th>VIN</th>
-  <th>Customer Name</th>
-  <th>Technician</th>
-  <th>Reason</th>
-  <th>Status</th>
-</tr>
-</thead>
-<tbody>
-  {props.service.map(data => {
-      const appointment = data.service;
-      return (
-        <tr key={appointment.id} className="table">
-          <td>{appointment.date}</td>
-          <td>{appointment.time}</td>
-          <td>{appointment.vin}</td>
-          <td>{appointment.customer_name}</td>
-          <td>{appointment.technician}</td>
-          <td>{appointment.reason}</td>
-          <td>{appointment.status}</td>
-        </tr>
-        
-      );
-    })}
-</tbody>
-</table>
-); . */}
-{/* {this.state.service.map(appointment => {
-                return (
-                  <tr key={appointment.id} className="table">
-                    <td>{appointment.date}</td>
-                    <td>{appointment.time}</td>
-                    <td>{appointment.vin}</td>
-                    <td>{appointment.customer_name}</td>
-                    <td>{appointment.technician}</td>
-                    <td>{appointment.reason}</td>
-                    {/* <button onClick={() => this.cancel(appointment.id)}>cancel</button>
-                    <button onClick={() => this.complete(appointment.id)}>finished</button> */}
-{/* </tr>
-                  
-              //   );
-              // })} */}
