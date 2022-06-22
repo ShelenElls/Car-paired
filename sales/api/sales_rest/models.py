@@ -19,21 +19,21 @@ class Customer(models.Model):
 class SalesRecord(models.Model):
     sales_person = models.ForeignKey(
         SalesPerson,
-        'sales_record',
+        related_name='sales_record',
         on_delete=models.PROTECT,
         null = False,
     )
     
     vin = models.ForeignKey(
         AutomobileVO,
-        'sales_record',
+        related_name='sales_record',
         on_delete=models.PROTECT,
         null = False,
     )
 
     customer = models.ForeignKey(
         Customer,
-        'sales_record',
+        related_name='sales_record',
         on_delete=models.PROTECT,
         null = False,
     )

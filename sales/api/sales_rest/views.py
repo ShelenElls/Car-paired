@@ -3,7 +3,7 @@ import json
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from common.json import ModelEncoder
-from sales.api.sales_rest.models import AutomobileVO, Customer, SalesPerson, SalesRecord
+from .models import AutomobileVO, Customer, SalesPerson, SalesRecord
 
 # Create your views here.
 
@@ -42,6 +42,7 @@ class SalesPersonDetailEncoder(ModelEncoder):
 @require_http_methods(["POST"])
 def api_list_salesperson(request):
     if request.method == "POST":
+        content = json.loads(request.body)
         salesperson = SalesPerson.objects.create(**content)
         return JsonResponse(
             salesperson,
@@ -51,15 +52,48 @@ def api_list_salesperson(request):
 
 @require_http_methods(["POST"])
 def api_list_customers(request):
-    pass
+    if request.method == "POST":
+        content = json.loads(request.body)
+        customer = Customer.objects.create(**content)
+        return JsonResponse(
+            customer,
+            encoder=CustomerEncoder,
+            safe=False,
+        )
 
 @require_http_methods(["GET", "POST"])
 def api_list_sales_records(request):
-    pass
+    content = json.response(request.body)
+    if request.method == "GET":
+        sales_record = SalesRecord.objects.all()
+        return JsonResponse(
+            {"sales_records": sales_record },
+            encoder=SaleRecordListEncoder,
+            safe=False,
+        )
+    else:
+        try:
+            vin = content["vins"]
+            vins = AutomobileVO.objects.get(vins=vin)
+            content["vins"] = vins
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Vin not in database"},
+                status=400
+            )
+    
 
 @require_http_methods(["GET"])
 def api_show_sales_records(request, pk):
-    pass
+    if request.method == "GET":
+        sales_record = SalesRecord.objects.filter(id=pk)
+        content = JsonResponse(
+            sales_record,
+            encoder=SaleRecordListEncoder,
+            safe=False,        
+        )
+    return content.json()
+    
 
 # sales list view for all:
 # - "salesperson name"
@@ -87,7 +121,7 @@ def api_show_sales_records(request, pk):
 # sale record- 
 # if request.method == "POST":
 # content = json.loads(request.body)
-        #try:
+        # try:
         #     vin = content["{vins}"] {vins is my name on my model/view}
         #     vins = {name of your VO}.objects.get(vins=vin)
         #     content["{vins}"] = vins
