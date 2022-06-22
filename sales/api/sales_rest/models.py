@@ -4,10 +4,12 @@ from django.db import models
 
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=30, unique=True)
+    import_href = models.CharField(max_length=200, unique=True, null=True)
+    sold = models.BooleanField(default=False)
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=50)
-    employee_num = models.CharField(max_length=100, unique=True, null=False)
+    employee_num = models.PositiveIntegerField(unique=True)
 
 
 class Customer(models.Model):
@@ -24,7 +26,7 @@ class SalesRecord(models.Model):
         null = False,
     )
     
-    vin = models.ForeignKey(
+    vin = models.OneToOneField(
         AutomobileVO,
         related_name='sales_record',
         on_delete=models.PROTECT,
@@ -37,4 +39,4 @@ class SalesRecord(models.Model):
         on_delete=models.PROTECT,
         null = False,
     )
-    sales_price = models.PositiveBigIntegerField()
+    sales_price = models.FloatField()

@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleWare',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,12 +51,16 @@ ALLOWED_HOSTS = [
     "localhost", 'inventory-api'
 ]
 
+CRONJOBS = [
+    ("* * * * *", "sales.poll.poll"),
+]
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", "http://localhost:8100", "http://localhost:8000",
+    "http://localhost:3000", "http://localhost:8100", "http://localhost:8090", "http://localhost:8000"
 ]
 CORS_ALLOW_CREDENTIALS = True
 
