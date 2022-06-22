@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import api_services, api_service, api_technician, api_tech, api_finished_apt, api_cancelled_apt
+from .views import api_services, api_service, api_technician, api_tech, api_finished_apt, api_cancelled_apt, api_show_appointment
 
 
 # api_show_appointment
@@ -14,6 +14,7 @@ urlpatterns = [
     path("technician/<int:pk>/", api_tech, name="api_tech"),
     path("services/finished/<int:pk>/", api_finished_apt, name="api_finished"),
     path("services/reject/<int:pk>/", api_cancelled_apt, name="api_cancelled"),
+    path("services/history/", api_show_appointment, name="api_show_appointment"),
 ]
 
 

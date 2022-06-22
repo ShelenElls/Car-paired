@@ -43,16 +43,6 @@ function AppointmentList(props) {
     }
   } 
 
-  //  const bool(currentTarget.id) => {
-  //   if (apt.vip == true) {
-  //     return(
-  //       <td>Yes</td>
-  //     )
-  //   } else {
-  //   <td>No</td>
-  //   }
-  // }
-
   return (
     <>
       <div className="container">
