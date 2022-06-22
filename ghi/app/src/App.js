@@ -6,6 +6,7 @@ import ServiceAppointmentForm from './ServiceAppointmentForm';
 import ServiceHistory from './ServiceHistory';
 import AppointmentList from './AppointmentList';
 import ManufacturersList from './ManufacturersList';
+import ManufacturerForm from './ManufacturerForm';
 import React from 'react';
 
 class App extends React.Component {
@@ -62,6 +63,7 @@ class App extends React.Component {
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="manufacturers/" element={<ManufacturerForm />} />
             <Route path="manufacturers/" element={<ManufacturersList manufacturers={this.state.manufacturelist} />} />
             <Route path="technician/" element={<TechnicianForm />} />
             <Route path="services/" element={<AppointmentList service={this.state.appointmentlist} />} />
