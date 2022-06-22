@@ -14,9 +14,11 @@ class App extends React.Component {
     this.state = {
       appointmentlist: [],
       servicehistory: [],
+      manufacturelist: [],
     }
     this.appointmentlist = this.appointmentlist.bind(this);
     this.servicehistory = this.servicehistory.bind(this);
+    this.manufacturelist = this.manufacturelist.bind(this);
   }
 
   async appointmentlist() {
@@ -38,10 +40,20 @@ class App extends React.Component {
       this.setState({servicehistory: data})
     }
   }
+
+  async manufacturelist() {
+    const responsemanufacturer = await fetch('http://localhost:8100/api/manufacturers/');
+    if (responsemanufacturer.ok) {
+      const data = await responsemanufacturer.json();
+      console.log("man", data)
+      this.setState({manufacturelist: data.manufacturers})
+    }
+  }
   
   componentDidMount() {
     this.appointmentlist()
     this.servicehistory()
+    this.manufacturelist()
   }
   render() {
     return (
@@ -50,6 +62,7 @@ class App extends React.Component {
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="manufacturers/" element={<ManufacturersList manufacturers={this.state.manufacturelist} />} />
             <Route path="technician/" element={<TechnicianForm />} />
             <Route path="services/" element={<AppointmentList service={this.state.appointmentlist} />} />
             <Route path="services/new" element={<ServiceAppointmentForm />} />
