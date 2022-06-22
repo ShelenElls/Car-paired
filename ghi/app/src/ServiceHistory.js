@@ -64,7 +64,7 @@ export default function ServiceHistory(props) {
                                     <td>{apt.time}</td>
                                     <td>{apt.technician.name}</td>
                                     <td>{apt.reason}</td>
-                                    <td>{getStatusSymbol(apt.status.name)}</td>
+                                    <td className="text-center">{getStatusSymbol(apt.status.name)}</td>
                                 </tr>
                             );
                         })}
