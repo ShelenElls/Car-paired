@@ -13,17 +13,14 @@ function Nav() {
           <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/technician">Enter a Technician</NavLink>
           </li>
-          <li className="nav-item">
+          <li className="nav-item dropdown">
               <NavLink className="nav-link" aria-current="page" to="/services">Appointment List</NavLink>
           </li>
           <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/services/details">Appointment Details</NavLink>
+              <NavLink className="nav-link" aria-current="page" to="/services/new/">New Service Appointment</NavLink>
           </li>
           <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/services/new">New Service Appointment</NavLink>
-          </li>
-          <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/services/history">History of Appointments</NavLink>
+              <NavLink className="nav-link" aria-current="page" to="/services/history/">History of Appointments</NavLink>
           </li>
           </ul>
         </div>
@@ -33,3 +30,15 @@ function Nav() {
 }
 
 export default Nav;
+
+
+// example of how to make a dropdown box for the multiple links in a service 
+{/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div> */}
+// wouldnt be an a link- it would be a navlink 
