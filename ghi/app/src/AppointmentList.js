@@ -19,7 +19,7 @@ function AppointmentList(props) {
     }
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      console.log({"second": "cancelled appointment"})
+      console.log({"second": "completed appointment"})
     } else {
       console.log({"third": "you failed"})
     }
@@ -57,7 +57,7 @@ function AppointmentList(props) {
               <th>Customer Name</th>
               <th>Technician</th>
               <th>Reason</th>
-              <th>Status</th>
+              <th>VIP Status</th>
               <th>Cancel Apt</th>
               <th>Complete Apt</th>
             </tr>
@@ -72,7 +72,7 @@ function AppointmentList(props) {
                   <td>{ apt.owner_name }</td>
                   <td>{ apt.technician.name }</td>
                   <td>{ apt.reason }</td>
-                  <td>{ apt.status.name }</td>
+                  <td>{ apt.vip }</td>
                   <td><button onClick={cancel} id={apt.id} key={apt.id}>Cancel</button></td>
                   <td><button onClick={finished} id={apt.id} key={apt.id}>Complete</button></td>
                 </tr>
