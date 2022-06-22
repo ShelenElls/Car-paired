@@ -83,7 +83,7 @@ function AppointmentList(props) {
                   <td>{ apt.owner_name }</td>
                   <td>{ apt.technician.name }</td>
                   <td>{ apt.reason }</td>
-                  <td>{  }</td>
+                  <td>{JSON.stringify(apt.vip)}</td>
                   <td><button onClick={cancel} id={apt.id} key={apt.id}>Cancel</button></td>
                   <td><button onClick={finished} id={apt.id} key={apt.id}>Complete</button></td>
                 </tr>
