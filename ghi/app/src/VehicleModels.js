@@ -7,28 +7,28 @@ function VehicleModel(props) {
     console.log("propmodel", props)
     return (
         <>
-            <div className="container">
-                <h1>Vehicle Models</h1>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Model Name</th>
-                            <th>Manufacturer</th>
-                            <th>Picture</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {props.autos.map(model => {
-                            return (
-                                <tr key={model.href}>
-                                    <td>{model.name}</td>
-                                    <td>{model.manufacturer.name}</td>
-                                    <td><img src={model.picture_url} alt="" width="20%" height="20%" /></td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+            <div className="container-fluid">
+                    <h1>Vehicle Models</h1>
+                    <table className="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Model Name</th>
+                                <th>Manufacturer</th>
+                                <th className="d-flex justify-contend-md-center">Picture</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {props.autos.map(model => {
+                                return (
+                                    <tr key={model.href}>
+                                        <td>{model.name}</td>
+                                        <td>{model.manufacturer.name}</td>
+                                        <td className="d-flex justify-contend-md-center"><img src={model.picture_url} alt="" width="75" height="250" className="img-fluid img-thumbnail" /></td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
             </div>
         </>
     )

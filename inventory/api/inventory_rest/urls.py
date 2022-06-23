@@ -41,6 +41,11 @@ urlpatterns = [
         name="api_vehicle_models",
     ),
     path(
+        "models/new/",
+        api_vehicle_models,
+        name="api_vehicle_models",
+    ),
+    path(
         "models/<int:pk>/",
         api_vehicle_model,
         name="api_vehicle_model",
