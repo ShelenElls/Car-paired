@@ -28,6 +28,8 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'sales_rest.apps.SalesRestConfig',
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -45,7 +48,11 @@ MIDDLEWARE = [
 ]
 
 ALLOWED_HOSTS = [
-    "localhost",
+    "localhost", 'inventory-api'
+]
+
+CRONJOBS = [
+    ("* * * * *", "sales.poll.poll"),
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -53,7 +60,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000", "http://localhost:8100", "http://localhost:8090", "http://localhost:8000"
 ]
 CORS_ALLOW_CREDENTIALS = True
 
