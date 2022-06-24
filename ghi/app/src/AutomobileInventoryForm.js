@@ -6,18 +6,18 @@ import React from 'react';
 class FormAutos extends React.Component {
     constructor(props) {
         super(props);
-            this.state = {
-                vin: '',
-                color: '',
-                year: '',
-                model_id: '',
-                model_ids: [],
-            }
-            this.handleSubmit = this.handleSubmit.bind(this);
-            this.handleChangeVin = this.handleChangeVin.bind(this);
-            this.handleChangeColor = this.handleChangeColor.bind(this);
-            this.handleChangeYear = this.handleChangeYear.bind(this);
-            this.handleChangeModel = this.handleChangeModel.bind(this);
+        this.state = {
+            vin: '',
+            color: '',
+            year: '',
+            model_id: '',
+            model_ids: [],
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeVin = this.handleChangeVin.bind(this);
+        this.handleChangeColor = this.handleChangeColor.bind(this);
+        this.handleChangeYear = this.handleChangeYear.bind(this);
+        this.handleChangeModel = this.handleChangeModel.bind(this);
     }
 
     async componentDidMount() {
@@ -50,9 +50,9 @@ class FormAutos extends React.Component {
     // Handle Submit //
     async handleSubmit(event) {
         event.preventDefault()
-        const data = {...this.state}
+        const data = {...this.state};
         delete data.model_ids
-        console.log(data)
+        
         const url = 'http://localhost:8100/api/automobiles/'
         const fetchConfig = {
             method: 'post',
@@ -61,18 +61,17 @@ class FormAutos extends React.Component {
                 'Content-Type': 'application/json',
             },
         };
+        console.log(data)
+
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
-            const newAutomobile = await response.json()
-            console.log(newAutomobile)
-            const cleared = {
+            this.setState({
                 vin: '',
                 color: '',
                 year: '',
                 model_id: '',
-            };
-            this.setState(cleared);
-        };
+            })
+        }
     }
 
     render() {

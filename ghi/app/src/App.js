@@ -12,6 +12,8 @@ import VehicleModelForm from './VehicleModelForm';
 import SalesPersonForm from './SalesPersonForm';
 import ListAutomobiles from './AutomobilesInventory';
 import FormAutos from './AutomobileInventoryForm';
+import CustomerForm from './CustomerForm';
+import SalesRecordList from './SalesRecordList';
 import React from 'react';
 
 
@@ -24,13 +26,17 @@ class App extends React.Component {
       manufacturelist: [],
       automobilelist: [],
       listautos: [],
+      salesrecords: [],
     }
     this.appointmentlist = this.appointmentlist.bind(this);
     this.servicehistory = this.servicehistory.bind(this);
     this.manufacturelist = this.manufacturelist.bind(this);
     this.automobilelist = this.automobilelist.bind(this);
     this.listautos = this.listautos.bind(this);
+    this.salesrecords = this.salesrecords.bind(this);
   }
+
+
 
   async appointmentlist() {
     const responseapt = await fetch('http://localhost:8080/api/services/');
@@ -49,6 +55,15 @@ class App extends React.Component {
       const data = await responseautos.json();
       console.log("auto", data)
       this.setState({listautos: data.autos})
+    }
+  }
+
+  async salesrecords() {
+    const srresponse = await fetch('http://localhost:8090/api/sales_records/');
+    if (srresponse.ok) {
+      const data = await srresponse.json();
+      console.log("sales_records", data)
+      this.setState({salesrecords: data.sales_records})
     }
   }
 
@@ -85,6 +100,7 @@ class App extends React.Component {
     this.manufacturelist()
     this.automobilelist()
     this.listautos()
+    this.salesrecords()
   }
   render() {
     return (
@@ -104,6 +120,8 @@ class App extends React.Component {
             <Route path="salesperson/new/" element={<SalesPersonForm />} />
             <Route path="automobiles/" element={<ListAutomobiles auto={this.state.listautos} />} />
             <Route path="automobiles/new" element={<FormAutos />} />
+            <Route path="customers/new/" element={<CustomerForm />} />
+            <Route path="salesrecords/" element={<SalesRecordList sales_record={this.state.salesrecords} />} />
           </Routes>
         </div>
       </BrowserRouter>
