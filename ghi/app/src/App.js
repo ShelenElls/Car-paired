@@ -9,7 +9,10 @@ import ManufacturersList from './ManufacturersList';
 import ManufacturerForm from './ManufacturerForm';
 import VehicleModels from './VehicleModels';
 import VehicleModelForm from './VehicleModelForm';
+import SalesPersonForm from './SalesPersonForm';
+import ListAutomobiles from './AutomobilesInventory';
 import React from 'react';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -85,6 +88,8 @@ class App extends React.Component {
             <Route path="services/" element={<AppointmentList service={this.state.appointmentlist} />} />
             <Route path="services/new" element={<ServiceAppointmentForm />} />
             <Route path="services/history" element={<ServiceHistory history={this.state.servicehistory} />} />
+            <Route path="salesperson/new" element={<SalesPersonForm />} />
+            <Route path="automobiles" element={<ListAutomobiles />} />
           </Routes>
         </div>
       </BrowserRouter>

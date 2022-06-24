@@ -11,10 +11,8 @@ from .models import AutomobileVO, Customer, SalesPerson, SalesRecord
 
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ['vin', 'sold']
+    properties = ['vin']
 
-    def get_extra_data(self, o):
-        return {"vin": o.vin}
 
 class SalesPersonEncoder(ModelEncoder):
     model = SalesPerson
@@ -31,26 +29,29 @@ class CustomerEncoder(ModelEncoder):
 
 class SaleRecordListEncoder(ModelEncoder):
     model = SalesRecord
-    properties = ["sales_price", "vin", "sales_person", "customer", "id"]
+    properties = ["sales_price", "sales_person", "customer", "id", "vin"]
     encoders = {
-        "vin": AutomobileVOEncoder,
-        "sales_person": SalesPersonEncoder,
-        "customer": CustomerEncoder,
+        "sales_person": SalesPersonEncoder(),
+        "customer": CustomerEncoder(),
+        "vin": AutomobileVOEncoder(),
     }
 
-class SaleRecordDetailEncoder(ModelEncoder):
-    model = SalesRecord
-    properties = ["sales_price", "vin", "sales_person", "customer", "id"]
-    encoders = {
-        "vin": AutomobileVOEncoder,
-        "sales_person": SalesPersonEncoder,
-        "customer": CustomerEncoder,
-    }
+# class SaleRecordDetailEncoder(ModelEncoder):
+#     model = SalesRecord
+#     properties = ["sales_price", "vin", "sales_person", "customer", "id"]
+#     encoders = {
+#         "sales_person": SalesPersonEncoder(),
+#         "customer": CustomerEncoder(),
+#
+#     }
+    
+#   def get_extra_data(self, o):
+#       return {"vin": o.vin}
 
-# class SalesPersonSalesHistoryEncoder(ModelEncoder):
-#     model = SalesPerson
-#     properties = ["name", "employee_num", "id"]
-#     encoders = {"sale_records": SaleRecordListEncoder}
+class SalesPersonSalesHistoryEncoder(ModelEncoder):
+    model = SalesPerson
+    properties = ["name", "employee_num", "id", "sale_records"]
+    encoders = {"sale_records": SaleRecordListEncoder()}
 
 #==============================================================================
 # VIEWS
@@ -75,18 +76,20 @@ def api_list_salesperson(request):
             encoder=SalesPersonEncoder,
         )
 
+
+
 # Sales History for a Sales Person
-#Something wrong here
+#Needs more Work
 @require_http_methods(["GET"])
 def api_show_sales_records(request, pk):
+    sales_person_id = SalesPerson.objects.all()
     if request.method == "GET":
         sales_person_id = SalesPerson.objects.filter(id=pk)
-
         sales_history = SalesRecord.objects.filter(sales_person_id=pk)
 
         return JsonResponse(
-            {"{sales_person_id}": sales_history},
-            encoder=SaleRecordDetailEncoder, 
+            {"sales_history": sales_history},
+            encoder=SaleRecordListEncoder, 
             safe=False       
         )
     
@@ -117,53 +120,26 @@ def api_list_customers(request):
 # List and Form for Sales Records 
 
 @require_http_methods(["GET", "POST"])
-def api_list_sales_records(request, automobile_vo_id=None):
+def api_list_sales_records(request):
     
     if request.method == "GET":
-        if automobile_vo_id is not None:
-            salerecords = SalesRecord.objects.filter(automobiles=automobile_vo_id)
-        else:
-            salerecords = SalesRecord.objects.all()
-        # content = json.loads(request.body)
-        # sales_record = SalesRecord.objects.all()
+        sales_records = SalesRecord.objects.all()
         return JsonResponse(
-            {"sales_records": salerecords },
+            {"sales_records": sales_records },
             encoder=SaleRecordListEncoder,
+            safe=False
         )
     else: #POST
         content = json.loads(request.body)
         # Automobile Encoder
         #+++++++++++++++++++++++++++++++++++++++++++
         # Something wrong with the vin retrieval
-        try:
-            autosvin = content["vin"]
-            automobile = AutomobileVO.objects.get(vin=autosvin)
-            content["vin"] = automobile
-        except AutomobileVO.DoesNotExist:
-            return JsonResponse(
-                {"message": "Vin not in database"},
-                status=400,
-            )
-        #+++++++++++++++++++++++++++++++++++++++++++++++
-        # Sales person Encoder
-        try:
-            salesperson = content["sales_person"]
-            content["sales_person"] = SalesPerson.objects.get(sales_person=salesperson)
-        except SalesPerson.DoesNotExist:
-            return JsonResponse(
-                {"message": "Sales Person Does Not Exist"},
-                status = 400,
-            )
-        # Customer Encoder
-        try:
-            potential_customer = Customer.objects.get(customer=content["customer"])
-            content["customer"] = potential_customer 
-        except Customer.DoesNotExist:
-            return JsonResponse(
-                {"message": "Customer Does Not Exist"},
-                status=400,
-            )
-
+        content = {
+            **content,
+            "sales_person": SalesPerson.objects.get(pk=content["sales_person"]),
+            "vin": AutomobileVO.objects.get(vin=content["vin"]),
+            "customer": Customer.objects.get(pk=content["customer"]),
+        }
         sales_record = SalesRecord.objects.create(**content)
         return JsonResponse(
             sales_record,

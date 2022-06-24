@@ -1,60 +1,60 @@
 import React from 'react';
 
 class SalesPersonForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      employee_num: '',
-      hasCreated: false,
-    }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangeSalesPersonId = this.handleChangeSalesPersonId.bind(this);
-  }
-  async handleSubmit(event) {
-    event.preventDefault();
-    const data = { ...this.state };
-    data.employee_number = data.salesPersonId;
-    delete data.salesPersonId;
-    delete data.hasCreated;
-    delete data.sales_person;
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     name: '',
+  //     employee_num: '',
+  //     hasCreated: false,
+  //   }
+  //   this.handleSubmit = this.handleSubmit.bind(this);
+  //   this.handleChangeName = this.handleChangeName.bind(this);
+  //   this.handleChangeSalesPersonId = this.handleChangeSalesPersonId.bind(this);
+  // }
+  // async handleSubmit(event) {
+  //   event.preventDefault();
+  //   const data = { ...this.state };
+  //   data.employee_number = data.salesPersonId;
+  //   delete data.salesPersonId;
+  //   delete data.hasCreated;
+  //   delete data.sales_person;
 
-    const url = 'http://localhost:8090/api/sales_person/';
-    const fetchConfig = {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    console.log(data)
-    const salesPersonResponse = await fetch(url, fetchConfig);
-    if (salesPersonResponse.ok) {
-      this.setState({
-        name: '',
-        employeeNum: '',
-      })
-    }
-  }
-  handleChangeName(event) {
-    const value = event.target.value;
-    this.setState({ name: value });
-  }
-  handleChangeemployeeId(event) {
-    const value = event.target.value;
-    this.setState({ employeeNum: value });
-  }
-  async componentDidMount() {
-    const url = 'http://localhost:8090/api/salesperson';
-    const response = await fetch(url);
-    console.log(response)
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({ sales_person: data.sales_person });
-      console.log("mount", data.sales_person)
-    }
-  }
+  //   const url = 'http://localhost:8090/api/salesperson/';
+  //   const fetchConfig = {
+  //     method: 'post',
+  //     body: JSON.stringify(data),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   };
+  //   console.log(data)
+  //   const salesPersonResponse = await fetch(url, fetchConfig);
+  //   if (salesPersonResponse.ok) {
+  //     this.setState({
+  //       name: '',
+  //       employeeNum: '',
+  //     })
+  //   }
+  // }
+  // handleChangeName(event) {
+  //   const value = event.target.value;
+  //   this.setState({ name: value });
+  // }
+  // handleChangeemployeeId(event) {
+  //   const value = event.target.value;
+  //   this.setState({ employeeNum: value });
+  // }
+  // async componentDidMount() {
+  //   const url = 'http://localhost:8090/api/salesperson';
+  //   const response = await fetch(url);
+  //   console.log(response)
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     this.setState({ sales_person: data.sales_person });
+  //     console.log("mount", data.sales_person)
+  //   }
+  // }
 
   render() {
     let messageClasses = 'alert alert-success d-none mb-0';

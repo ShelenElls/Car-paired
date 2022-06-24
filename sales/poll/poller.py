@@ -11,17 +11,19 @@ django.setup()
 
 from sales_rest.models import AutomobileVO
 
+def get_vin():
+    response = requests.get("http://inventory-api:8000/api/automobiles/")
+    content = json.loads(response.content)
+    for automobile in content["autos"]:
+        AutomobileVO.objects.update_or_create(
+            vin=automobile["vin"]
+        )
+
 def poll():
     while True:
-        print('Sales poller polling for data with New Changes to Sales Poller')
+        print('Sales poller polling for data through get_vin')
         try:
-            response = requests.get("http://inventory-api:8000/api/automobiles/")
-            content = json.loads(response.content)
-            for auto in content["autos"]:
-                AutomobileVO.objects.update_or_create(
-                    vin=auto["vin"],
-                    sold=auto["sold"],  
-                )
+            get_vin()
             pass
         except Exception as e:
             print(e, file=sys.stderr)
