@@ -1,6 +1,3 @@
-//form field for the name of manufacturers
-
-// http://localhost:8100/api/manufacturers/
 
 import React from 'react';
 
@@ -73,30 +70,3 @@ class ManufacturerForm extends React.Component {
 }
 export default ManufacturerForm;
 
-// function ManufacturersList(props)
-//   console.log("props side", props)
-//   return (
-//       <>
-//         <div className="container">
-//           <h1>Manufacturers</h1>
-//         </div>
-//         <table className="table table-striped">
-//         <thead>
-//           <th>
-//               Name
-//           </th>
-//         </thead>
-//           <tbody>
-//               {props.manufacturers.map(man => {
-//                   return(
-//                       <tr key={man.id}>
-//                           <td>{man.name}</td>
-//                       </tr>
-//                   )
-//               })}
-//           </tbody>
-//         </table>
-//       </>
-//   )
-// }
-// export default ManufacturersList

@@ -1,5 +1,3 @@
-// just the name of manufacturers ; name on views 
-// manufacturers
 
 function ManufacturersList(props) {
   console.log("props side", props)

@@ -58,11 +58,7 @@ class AppointmentEncoder(ModelEncoder):
             return {"vip": True}
         except:
             return {"vip": False}
-        # try automobilevo.objects.get (VIN) if true return an object with key of VIP value
-        # is either true or false  
-
-
-# filter unfinished ones- 
+ 
 
 @require_http_methods(["GET", "POST"])
 def api_services(request):
@@ -170,65 +166,3 @@ def api_show_appointment(requests):
     )
 
 
-# id = content["technician"]
-#             technician = Technician.objects.get(employee_number=id)
-#             content["technician"] = technician
-# # show appointment needs to collect all the data from VINS. needs to collect 
-# all appointments for finished and pending. 
-
-# object.get(vin)
-# 
-
-
-# unable to find a working solution on a straight view- may need to
-# just utilize react
-#  history of appointments? get.filer.vin ?
-#  employee_number=content["technician"]
-
-
-# try:
-    #     vin = content["vins"]
-    #     vins = AutomobileVo.objects.get(vins=vin)
-    #     content["vins"] = vins
-    # except AutomobileVo.DoesNotExist:
-    #     return JsonResponse(
-    #         {"message": "Vin not in database"},
-    #         status=400
-    #     )
-    # try:
-    #     id = content["technician"]
-    #     technician = Technician.objects.get(employee_number=id)
-    #     content["technician"] = technician
-    # except Technician.DoesNotExist:
-    #     return JsonResponse(
-    #         {"message": "Technician not in database"},
-    #         status=400,
-    #     )
-
-
-# list view for services
-# detail view for services
-#
-# inventoryVO
-# technician post + get -
-# service history - list of apts for specific vin and include details of apts
-
-# class AutomobileVo(models.Model):
-#     vin = models.CharField(max_length=17, unique=True)
-
-# class Technician(models.Model):
-#     name = models.CharField(max_length=100)
-#     employee_number = models.CharField(max_length=100, unique=True)
-
-# class Appointment(models.Model):
-#     vin = models.ForeignKey(AutomobileVo, related_name="appointments", on_delete=CASCADE)
-#     owner_name = models.CharField(max_length=100)
-#     technician = models.ForeignKey(Technician, related_name="appointments", on_delete=models.CASCADE)
-#     date = models.DateTimeField()
-#     reason = models.TextField()
-
-
-# api_services,
-# "services/<int:pk>", api_service
-# api_show_appointment,
-# api_technician

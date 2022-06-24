@@ -1,7 +1,3 @@
-// url http://localhost:8100/api/models/
-// fields - name, picture_url, and manufacturer =[] manufacturer.name
-// get request is {"autos": autos}
-// post request is just auto 
 
 function VehicleModel(props) {
     console.log("propmodel", props)

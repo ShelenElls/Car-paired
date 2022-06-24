@@ -2,10 +2,6 @@ from django.urls import path
 from .views import api_services, api_service, api_technician, api_tech, api_finished_apt, api_cancelled_apt, api_show_appointment
 
 
-# api_show_appointment
-
-# technician ? 
-#needs to be updated with view name
 urlpatterns = [
     path("services/", api_services, name="api_services"),
     path("services/new", api_services, name="api_services"),
@@ -17,7 +13,3 @@ urlpatterns = [
     path("services/history/", api_show_appointment, name="api_show_appointment"),
 ]
 
-
-   # detail view 
-    # path("services/history/", api_show_appointment, name="api_show_appointment")
-    # services/<int:pk>/ for the puts requests

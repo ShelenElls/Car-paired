@@ -1,10 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-// boolean in the model - finished set to false; 
-// in view- in detail for put- and set a cancel button
-// set a finished button - default is false, put changes to true on api_service
-// is the vin in the database- yes == VIP (add star)
-  // status unfinished/finished/cancelled  
 
 
 function AppointmentList(props) {
@@ -87,5 +81,4 @@ function AppointmentList(props) {
 }
 export default AppointmentList;
 
-// look up how to do conditional statement with map in react
 

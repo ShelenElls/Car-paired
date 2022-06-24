@@ -5,13 +5,10 @@ export default function ServiceHistory(props) {
     console.log({props})
 
     let [searched, setSearched] = useState("");
-    // setSearched("this is a test");
     useEffect(() => {
     }, []) 
 
-    // ✅
-    // ❌
-    // 👍
+
     
     function getStatusSymbol(status){
         switch(status){
@@ -75,32 +72,3 @@ export default function ServiceHistory(props) {
     )
 }
 
-// needs handleChange event- and setting the value to a '';
-// and setting the value for the form to this.state.value and this.handleChange
-
-// search bar?? - text input area in its own form
-// button -
-// onsubmit - gets the input and DOES request with vin-
-// pulls the appointments for the vin-
-// show on page.
-
-// url for this view/page http://localhost:8080/api/services/history/
-
-
-
-
-// <div class="input-group input-group-lg">
-//   <div class="input-group-prepend">
-//   <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
-// </div>
-// <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-// </div>
-//  just a search bar ^^
-
-// a search bar with a button 
-{/* <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button">Button</button>
-  </div>
-</div> */}
