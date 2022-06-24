@@ -11,6 +11,7 @@ import VehicleModels from './VehicleModels';
 import VehicleModelForm from './VehicleModelForm';
 import SalesPersonForm from './SalesPersonForm';
 import ListAutomobiles from './AutomobilesInventory';
+import FormAutos from './AutomobileInventoryForm';
 import React from 'react';
 
 
@@ -22,11 +23,13 @@ class App extends React.Component {
       servicehistory: [],
       manufacturelist: [],
       automobilelist: [],
+      listautos: [],
     }
     this.appointmentlist = this.appointmentlist.bind(this);
     this.servicehistory = this.servicehistory.bind(this);
     this.manufacturelist = this.manufacturelist.bind(this);
     this.automobilelist = this.automobilelist.bind(this);
+    this.listautos = this.listautos.bind(this);
   }
 
   async appointmentlist() {
@@ -37,6 +40,15 @@ class App extends React.Component {
       this.setState({ 
         appointmentlist: data.service
       })
+    }
+  }
+
+  async listautos() {
+    const responseautos = await fetch('http://localhost:8100/api/automobiles/');
+    if (responseautos.ok) {
+      const data = await responseautos.json();
+      console.log("auto", data)
+      this.setState({listautos: data.autos})
     }
   }
 
@@ -72,6 +84,7 @@ class App extends React.Component {
     this.servicehistory()
     this.manufacturelist()
     this.automobilelist()
+    this.listautos()
   }
   render() {
     return (
@@ -89,7 +102,8 @@ class App extends React.Component {
             <Route path="services/new" element={<ServiceAppointmentForm />} />
             <Route path="services/history" element={<ServiceHistory history={this.state.servicehistory} />} />
             <Route path="salesperson/new" element={<SalesPersonForm />} />
-            <Route path="automobiles" element={<ListAutomobiles />} />
+            <Route path="automobiles/" element={<ListAutomobiles auto={this.state.listautos} />} />
+            <Route path="automobiles/new" element={<FormAutos />} />
           </Routes>
         </div>
       </BrowserRouter>

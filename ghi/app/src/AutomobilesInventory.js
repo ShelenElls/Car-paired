@@ -3,10 +3,9 @@
 import React from 'react';
 
 function ListAutomobiles(props) {
-    console.log("propmodel", props)
     return (
         <div className="container-fluid">
-            <h2>Automobiles</h2>
+            <h2>List Automobiles</h2>
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -18,17 +17,16 @@ function ListAutomobiles(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.autos.map(automobile => {
-                        {/* if (automobile.sold === false) { */}
+                    {props.autos.map(auto => {
                         return (
-                            <tr key={automobile.id}>
-                            <td>{ automobile.vin }</td>
-                            <td>{ automobile.color }</td>
-                            <td>{ automobile.year }</td>
-                            <td>{ automobile.model.name }</td>
-                            <td>{ automobile.model.manufacturer.name }</td>
-                        </tr>
-                        );
+                            <tr key={auto.id}>
+                                <td>{ auto.vin }</td>
+                                <td>{ auto.color }</td>
+                                <td>{ auto.year }</td>
+                                <td>{ auto.model.name }</td>
+                                <td>{ auto.model.manufacturer.name }</td>
+                            </tr>
+                        )
                     })};
                 </tbody>
             </table>

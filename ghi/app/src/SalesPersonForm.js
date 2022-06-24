@@ -1,95 +1,88 @@
 import React from 'react';
 
 class SalesPersonForm extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     name: '',
-  //     employee_num: '',
-  //     hasCreated: false,
-  //   }
-  //   this.handleSubmit = this.handleSubmit.bind(this);
-  //   this.handleChangeName = this.handleChangeName.bind(this);
-  //   this.handleChangeSalesPersonId = this.handleChangeSalesPersonId.bind(this);
-  // }
-  // async handleSubmit(event) {
-  //   event.preventDefault();
-  //   const data = { ...this.state };
-  //   data.employee_number = data.salesPersonId;
-  //   delete data.salesPersonId;
-  //   delete data.hasCreated;
-  //   delete data.sales_person;
-
-  //   const url = 'http://localhost:8090/api/salesperson/';
-  //   const fetchConfig = {
-  //     method: 'post',
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   };
-  //   console.log(data)
-  //   const salesPersonResponse = await fetch(url, fetchConfig);
-  //   if (salesPersonResponse.ok) {
-  //     this.setState({
-  //       name: '',
-  //       employeeNum: '',
-  //     })
-  //   }
-  // }
-  // handleChangeName(event) {
-  //   const value = event.target.value;
-  //   this.setState({ name: value });
-  // }
-  // handleChangeemployeeId(event) {
-  //   const value = event.target.value;
-  //   this.setState({ employeeNum: value });
-  // }
-  // async componentDidMount() {
-  //   const url = 'http://localhost:8090/api/salesperson';
-  //   const response = await fetch(url);
-  //   console.log(response)
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     this.setState({ sales_person: data.sales_person });
-  //     console.log("mount", data.sales_person)
-  //   }
-  // }
-
-  render() {
-    let messageClasses = 'alert alert-success d-none mb-0';
-    let formClasses = '';
-    if (this.state.hasCreated) {
-      messageClasses = 'alert alert-success mb-0';
-      formClasses = 'd-none';
+    constructor(props) {
+        super(props);
+            this.state = {
+              name: '',
+              employeeId: '',
+            }
+            this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleChangeName = this.handleChangeName.bind(this);
+            this.handleChangeEmployeeNumber = this.handleChangeEmployeeNumber.bind(this);
     }
-    return (
-      <div className='row'>
-        <div className='col col-sm-auto'>
-          <form className='{formClasses}' onSubmit={this.handleSubmit} id="create-salesperson-form">
-            <h1 className='card-title'>Enter New Sales Person</h1>
-            <p className="mb-3">First and Last Name </p>
-            <div className="col">
-              <div className="form-floating mb-3">
-                <input onChange={this.handleChangeName} required placeholder="name" type="text" id="name" name="name" className="form-control" />
-                <label htmlFor="name">Name</label>
-              </div>
-            </div>
-            <div className="col">
-              <div className="form-floating mb-3">
-                <input onChange={this.handleChangesalesPersonId} required placeholder="salesPersonsId" type="number" id="salesPersonsId" name="salesPersonsId" className="form-control" />
-                <label htmlFor="">Sales Person's ID </label>
-              </div>
-            </div>
-            <button className="btn btn-lg btn-primary">Add Sales Person</button> 
-          </form>
-          <div className={messageClasses} id="success-message">
-                  Sales Person Added
-                </div>
-        </div>
-      </div>
-    )
-  }
 
+    // async componentDidMount() {
+    //     const url = 'http://localhost:8100/api/models/'
+    //     const response = await fetch(url);
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         this.setState({ model_ids: data.models })
+    //     }
+    // }
+
+    // // handleChange functions // 
+    // handleChangeVin(event) {
+    //     const value = event.target.value
+    //     this.setState({ vin: value })
+    // }
+    // handleChangeColor(event) {
+    //     const value = event.target.value
+    //     this.setState({ color: value })
+    // }
+    // handleChangeYear(event) {
+    //     const value = event.target.value
+    //     this.setState({ year: value })
+    // }
+    // handleChangeModel(event) {
+    //     const value = event.target.value
+    //     this.setState({ model_id: value })
+    // }
+
+    // // Handle Submit //
+    // async handleSubmit(event) {
+    //     event.preventDefault()
+    //     const data = {...this.state}
+    //     delete data.model_ids
+    //     console.log(data)
+    //     const url = 'http://localhost:8100/api/automobiles/'
+    //     const fetchConfig = {
+    //         method: 'post',
+    //         body: JSON.stringify(data),
+    //         headers : {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     };
+    //     const response = await fetch(url, fetchConfig);
+    //     if (response.ok) {
+    //         const newAutomobile = await response.json()
+    //         console.log(newAutomobile)
+    //         this.setState({
+    //             vin: '',
+    //             color: '',
+    //             year: '',
+    //             model_id: '',
+    //         })
+    //     }
+    // }
+
+    render() {
+        return (
+            <div className="px-4 py-5 my-5 text-center">
+              <h1 className="display-5 fw-bold">Create an Sales Person</h1>
+              <form onSubmit={this.handleSubmit} id='create-salesperson-form'>
+                <div className="form-floating mb-3">
+                    <input onChange={this.handleChangeName} name='name' requiredtype='text' id='name' className='form-control' />
+                    <label htmlFor='name'>Name</label>
+                </div>
+                <div className="form-floating mb-3">
+                  <input onChange={this.handleChangeEmployeeNumber}  name='employeenumber' type='text' id='employeenumber' className='form-control' />
+                  <label htmlFor='employeenumber'>Employee Number</label>
+                </div>
+                  <button className="btn btn-primary">Add SalesPerson</button>
+              </form>
+            </div>            
+        );
+    }
 }
 export default SalesPersonForm;
