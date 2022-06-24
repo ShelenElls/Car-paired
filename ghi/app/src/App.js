@@ -113,23 +113,3 @@ class App extends React.Component {
 }
 export default App;
 
-
-// after manufacture props added/ got a map error on appointment list 
-// turn it into a class - turn apps into state- 
-
-
-
-// async function AppointmentList() {
-//   const response = await fetch('http://localhost:8080/api/services/');
-//   if (response.ok) {
-//     const data = await response.json();
-//     root.render(
-//       <React.StrictMode>
-//         <App service={data.service} />
-//       </React.StrictMode>
-//     );
-//   }
-// }
-// AppointmentList();
-
-// && props.manufacturers === undefined (manufacturers={props.manufacturers}) <Route path='manufacturers/' element={<ManufacturersList />} />

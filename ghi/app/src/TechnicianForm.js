@@ -99,15 +99,3 @@ export default TechnicianForm;
 
 
 
-// technician has a get/post/and delete
-// parameters are name and employee_number
-// employee_number is the value and id key
-// need a true/false to show a success message?
-// url is http://localhost:8080/api/technician/
-
-
-
-
-
-
-

@@ -9,8 +9,7 @@ sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "service_project.settings")
 django.setup()
 
-# Import models from service_rest, here.
-# from service_rest.models import Something
+
 from service_rest.models import AutomobileVo
 
 def get_autos():
@@ -26,7 +25,6 @@ def poll():
         print('Service poller polling for data correctly with change')
         try:
             get_autos()
-            # Write your polling logic, here
             pass
         except Exception as e:
             print(e, file=sys.stderr)

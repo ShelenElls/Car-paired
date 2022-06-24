@@ -1,5 +1,3 @@
-// model form http://localhost:8100/api/models/new/
-
 import React from 'react';
 
 class VehicleModelForm extends React.Component {

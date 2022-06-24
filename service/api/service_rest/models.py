@@ -3,14 +3,12 @@ from tkinter import CASCADE
 from django.db import models
 from django.urls import reverse, reverse_lazy
 
-# from inventory.api.inventory_rest.models import Automobile
 
-# Create your models here.
 class Status(models.Model):
     name = models.CharField(max_length=10, unique=True)
 
     class Meta:
-        verbose_name_plural = "statuses"  # Fix the pluralization
+        verbose_name_plural = "statuses" 
 
 class AutomobileVo(models.Model):
     vin = models.CharField(max_length=17, unique=True)
