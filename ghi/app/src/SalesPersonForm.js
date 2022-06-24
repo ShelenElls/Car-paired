@@ -12,34 +12,17 @@ class SalesPersonForm extends React.Component {
             this.handleChangeEmployeeNumber = this.handleChangeEmployeeNumber.bind(this);
     }
 
-    // async componentDidMount() {
-    //     const url = 'http://localhost:8100/api/models/'
-    //     const response = await fetch(url);
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         this.setState({ model_ids: data.models })
-    //     }
-    // }
+     // handleChange functions // 
+    handleChangeName(event) {
+      const value = event.target.value
+      this.setState({ name: value })
+    }
+    handleChangeEmployeeNumber(event) {
+      const value = event.target.value
+      this.setState({ employeeId: value })
+    }
 
-    // // handleChange functions // 
-    // handleChangeVin(event) {
-    //     const value = event.target.value
-    //     this.setState({ vin: value })
-    // }
-    // handleChangeColor(event) {
-    //     const value = event.target.value
-    //     this.setState({ color: value })
-    // }
-    // handleChangeYear(event) {
-    //     const value = event.target.value
-    //     this.setState({ year: value })
-    // }
-    // handleChangeModel(event) {
-    //     const value = event.target.value
-    //     this.setState({ model_id: value })
-    // }
-
-    // // Handle Submit //
+    // Handle Submit //
     // async handleSubmit(event) {
     //     event.preventDefault()
     //     const data = {...this.state}
@@ -76,7 +59,7 @@ class SalesPersonForm extends React.Component {
                     <label htmlFor='name'>Name</label>
                 </div>
                 <div className="form-floating mb-3">
-                  <input onChange={this.handleChangeEmployeeNumber}  name='employeenumber' type='text' id='employeenumber' className='form-control' />
+                  <input onChange={this.handleChangeEmployeeNumber}  name='employeenumber' type='number' id='employeenumber' className='form-control' />
                   <label htmlFor='employeenumber'>Employee Number</label>
                 </div>
                   <button className="btn btn-primary">Add SalesPerson</button>
