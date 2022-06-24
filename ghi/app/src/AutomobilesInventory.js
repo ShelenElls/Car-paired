@@ -3,6 +3,7 @@
 import React from 'react';
 
 function ListAutomobiles(props) {
+    console.log("auto:", props)
     return (
         <div className="container-fluid">
             <h2>List Automobiles</h2>
@@ -17,17 +18,17 @@ function ListAutomobiles(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.autos.map(auto => {
+                    {props.auto.map(a => {
                         return (
-                            <tr key={auto.id}>
-                                <td>{ auto.vin }</td>
-                                <td>{ auto.color }</td>
-                                <td>{ auto.year }</td>
-                                <td>{ auto.model.name }</td>
-                                <td>{ auto.model.manufacturer.name }</td>
+                            <tr key={a.id}>
+                                <td>{ a.vin }</td>
+                                <td>{ a.color }</td>
+                                <td>{ a.year }</td>
+                                <td>{ a.model.name }</td>
+                                <td>{ a.model.manufacturer.name }</td>
                             </tr>
                         )
-                    })};
+                    })}
                 </tbody>
             </table>
         </div>
