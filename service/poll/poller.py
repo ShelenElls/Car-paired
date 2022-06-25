@@ -22,7 +22,7 @@ def get_autos():
 
 def poll():
     while True:
-        print('Service poller polling for data correctly with change')
+        print('Service poller polling for data')
         try:
             get_autos()
             pass

@@ -1,9 +1,8 @@
-// displays the vin, color, year, model, and manufacturer 
+
 
 import React from 'react';
 
 function ListAutomobiles(props) {
-    console.log("auto:", props)
     return (
         <div className="container-fluid">
             <h2>List Automobiles</h2>

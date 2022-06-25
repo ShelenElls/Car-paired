@@ -36,7 +36,6 @@ class App extends React.Component {
     const responseapt = await fetch('http://localhost:8080/api/services/');
     if (responseapt.ok) {
       const data = await responseapt.json();
-      console.log("apt", data)
       this.setState({ 
         appointmentlist: data.service
       })
@@ -47,7 +46,6 @@ class App extends React.Component {
     const responseautos = await fetch('http://localhost:8100/api/automobiles/');
     if (responseautos.ok) {
       const data = await responseautos.json();
-      console.log("auto", data)
       this.setState({listautos: data.autos})
     }
   }
@@ -56,7 +54,6 @@ class App extends React.Component {
     const responsehx = await fetch('http://localhost:8080/api/services/history/');
     if (responsehx.ok) {
       const data = await responsehx.json();
-      console.log("hst", data)
       this.setState({servicehistory: data})
     }
   }
@@ -65,7 +62,6 @@ class App extends React.Component {
     const responsemanufacturer = await fetch('http://localhost:8100/api/manufacturers/');
     if (responsemanufacturer.ok) {
       const data = await responsemanufacturer.json();
-      console.log("man", data)
       this.setState({manufacturelist: data.manufacturers})
     }
   }
@@ -74,7 +70,6 @@ class App extends React.Component {
     const automobileresponse =await fetch('http://localhost:8100/api/models/')
     if (automobileresponse.ok) {
       const data = await automobileresponse.json();
-      console.log("autodata", data)
       this.setState({automobilelist: data.models})
     }
   }

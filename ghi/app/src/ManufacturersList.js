@@ -1,6 +1,5 @@
 
 function ManufacturersList(props) {
-  console.log("props side", props)
     return (
         <>
           <div className="container">

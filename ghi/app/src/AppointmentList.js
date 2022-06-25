@@ -5,7 +5,6 @@ function AppointmentList(props) {
 
 
   const finished = async (event) => {
-    console.log(event.currentTarget.id)
     const idvalue = event.currentTarget.id;
     const url = `http://localhost:8080/api/services/finished/${idvalue}/`
     const fetchConfig = {
@@ -14,15 +13,14 @@ function AppointmentList(props) {
     }
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      console.log({"second": "completed appointment"})
+      console.log({"Success": "completed appointment"})
     } else {
-      console.log({"third": "you failed"})
+      console.log({"Not Success my dude": "you failed"})
     }
   }
 
 
   const cancel = async (event) => {
-    console.log(event.currentTarget.id)
     const idvalue = event.currentTarget.id;
     const url = `http://localhost:8080/api/services/reject/${idvalue}/`
     const fetchConfig = {
@@ -31,9 +29,9 @@ function AppointmentList(props) {
     }
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      console.log({"second": "cancelled appointment"})
+      console.log({"Success": "cancelled appointment"})
     } else {
-      console.log({"third": "you failed"})
+      console.log({"Not Success my dude": "you failed"})
     }
   } 
 
