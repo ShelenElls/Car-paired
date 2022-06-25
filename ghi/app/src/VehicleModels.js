@@ -1,6 +1,5 @@
 
 function VehicleModel(props) {
-    console.log("propmodel", props)
     return (
         <>
             <div className="container-fluid">

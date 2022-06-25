@@ -2,7 +2,6 @@
 import React, {useState, useEffect} from "react";
 
 export default function ServiceHistory(props) {
-    console.log({props})
 
     let [searched, setSearched] = useState("");
     useEffect(() => {

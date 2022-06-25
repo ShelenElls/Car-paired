@@ -28,7 +28,6 @@ class TechnicianForm extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-    console.log(data)
     const employeeResponse = await fetch(url, fetchConfig);
     if (employeeResponse.ok) {
       this.setState({
@@ -53,7 +52,6 @@ class TechnicianForm extends React.Component {
     if (response.ok) {
       const data = await response.json();
       this.setState({ technician: data.technician });
-      console.log("mount", data.technician)
     }
   }
 
