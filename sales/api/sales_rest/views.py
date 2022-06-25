@@ -36,14 +36,14 @@ class SaleRecordListEncoder(ModelEncoder):
         "vin": AutomobileVOEncoder(),
     }
 
-# class SaleRecordDetailEncoder(ModelEncoder):
-#     model = SalesRecord
-#     properties = ["sales_price", "vin", "sales_person", "customer", "id"]
-#     encoders = {
-#         "sales_person": SalesPersonEncoder(),
-#         "customer": CustomerEncoder(),
-#
-#     }
+class SaleRecordDetailEncoder(ModelEncoder):
+    model = SalesRecord
+    properties = ["sales_price", "vin", "sales_person", "customer", "id"]
+    encoders = {
+        "sales_person": SalesPersonEncoder(),
+        "customer": CustomerEncoder(),
+
+    }
     
 #   def get_extra_data(self, o):
 #       return {"vin": o.vin}
@@ -80,18 +80,31 @@ def api_list_salesperson(request):
 
 # Sales History for a Sales Person
 #Needs more Work
-@require_http_methods(["GET"])
-def api_show_sales_records(request, pk):
-    sales_person_id = SalesPerson.objects.all()
-    if request.method == "GET":
-        sales_person_id = SalesPerson.objects.filter(id=pk)
-        sales_history = SalesRecord.objects.filter(sales_person_id=pk)
+# @require_http_methods(["GET"])
+# def api_show_sales_records(request, pk):
 
-        return JsonResponse(
-            {"sales_history": sales_history},
-            encoder=SaleRecordListEncoder, 
-            safe=False       
-        )
+
+
+
+
+
+
+
+
+
+
+
+
+    # sales_person_id = SalesPerson.objects.all()
+    # if request.method == "GET":
+    #     sales_person_id = SalesPerson.objects.filter(id=pk)
+    #     sales_history = SalesRecord.objects.filter(sales_person_id=pk)
+
+    #     return JsonResponse(
+    #         {"sales_history": sales_history},
+    #         encoder=SaleRecordListEncoder, 
+    #         safe=False       
+    #     )
     
 
 # Form for Potential Customers 

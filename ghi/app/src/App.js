@@ -14,7 +14,10 @@ import ListAutomobiles from './AutomobilesInventory';
 import FormAutos from './AutomobileInventoryForm';
 import CustomerForm from './CustomerForm';
 import SalesRecordList from './SalesRecordList';
+import SalesRecordForm from './SalesRecordForm';
+import SalesHistory from './SalesHistory';
 import React from 'react';
+
 
 
 class App extends React.Component {
@@ -57,7 +60,7 @@ class App extends React.Component {
   }
 
   async salesrecords() {
-    const srresponse = await fetch('http://localhost:8090/api/sales_records/');
+    const srresponse = await fetch('http://localhost:8090/api/salesrecords/');
     if (srresponse.ok) {
       const data = await srresponse.json();
       console.log("sales_records", data)
@@ -117,6 +120,8 @@ class App extends React.Component {
             <Route path="automobiles/new" element={<FormAutos />} />
             <Route path="customers/new/" element={<CustomerForm />} />
             <Route path="salesrecords/" element={<SalesRecordList sales_record={this.state.salesrecords} />} />
+            <Route path="salesrecords/new/" element={<SalesRecordForm />} />
+            <Route path="saleshistory/" element={<SalesHistory />}/>
           </Routes>
         </div>
       </BrowserRouter>
