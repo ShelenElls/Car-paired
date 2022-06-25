@@ -17,7 +17,7 @@ class SalesHistory extends React.Component {
         if (salesPersonResponse.ok) {
             const data = await salesPersonResponse.json();
             console.log(data)
-            this.setState({ sales_persons: data.salesperson})
+            this.setState({ salespersons: data.salesperson})
         }
 
         const salesRecordsUrl = 'http://localhost:8090/api/salesrecords/'
@@ -42,7 +42,7 @@ class SalesHistory extends React.Component {
                         <option value="">Choose Sales Person</option>
                         {this.state.salespersons.map(salesperson => {
                             return (
-                                <option key={salesperson.employee_num} value={salesperson.employee_num}>{salesperson.name}</option>
+                                <option key={salesperson.id} value={salesperson.employee_num}>{salesperson.name}</option>
                             );
                         })}
                     </select>
@@ -62,8 +62,8 @@ class SalesHistory extends React.Component {
                         return (
                             <tr key={ a.vin.vin }>
                                 <td>{ a.vin.vin}</td>
-                                <td>{ a.salesperson_name}</td>
-                                <td>{ a.customer_name}</td>
+                                <td>{ a.salespersons}</td>
+                                <td>{ a.customers}</td>
                                 <td>{ a.sales_price}</td>
                             </tr>
                         );
