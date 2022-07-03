@@ -14,6 +14,8 @@ Please see the attached PNG for an in-depth desciription of how our bounded cont
 
 ## Service microservice
 
+This project utilizes Docker for deployment. 
+
 The service microservice has four models. One to define a status, one to be the consumer of the data from the poller called AutomobileVo, a model for the teachnician and finally a model for the services' itself called Appointment. 
 
 Inventory is being polled into my VO so that all vin data can be collected and determine if a client's vehicle was purchased in house. 
